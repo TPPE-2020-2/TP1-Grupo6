@@ -1,9 +1,9 @@
 #include "ActivityDiagram.hpp"
 
 ActivityDiagram::ActivityDiagram(string name) {
-	this->name = "my_diagram";
+	this->name = name;
 }
 
 string ActivityDiagram::getName() {
-	return "my_diagram";
+	return this->name;
 }
