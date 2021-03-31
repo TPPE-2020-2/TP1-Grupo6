@@ -48,8 +48,8 @@ string ActivityDiagram::toXML() {
 
 int ActivityDiagram::exportXML(){
 	std::ofstream out;
-	out.open("ActivityDiagram.xml");
 	auto xml = this->toXML();
+	out.open("ActivityDiagram.xml");
 	out << xml;
 	out.close();
 	return 1;

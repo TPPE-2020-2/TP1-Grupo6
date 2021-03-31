@@ -2,6 +2,7 @@
 #include "Element.hpp"
 #include "Transition.hpp"
 #include <gtest/gtest.h>
+#include <fstream>
 
 TEST(ActivityDiagramCreationTest, DiagramCreation) {
 	ActivityDiagram diagram("my_diagram");
@@ -208,6 +209,78 @@ TEST(DiagramXMLTest, DiagramXML3) {
 	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<ActivityNode name=\"activity1\" />\n\t\t<ActivityNode name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
 			  diagram.toXML()
 			 );
+}
+
+TEST(DiagramExportXMLTest, DiagramExportXML) {
+	std::ifstream in;
+	ActivityDiagram diagram("diagram");
+
+	diagram.addElement("start", "StartNode");
+	diagram.addElement("activity1", "ActivityNode");
+	diagram.addElement("activity2", "ActivityNode");
+	diagram.addElement("end", "FinalNode");
+
+	diagram.addTransition("transition1", "partida", "activity1");
+	diagram.addTransition("transition2", "activity1", "activity2");
+	diagram.addTransition("transition2", "activity2", "end");
+
+	diagram.exportXML();
+
+	in.open("ActivityDiagram.xml");
+	auto ss = ostringstream{};
+	ss << in.rdbuf();
+		
+	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<ActivityNode name=\"activity1\" />\n\t\t<ActivityNode name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+		ss.str()
+	);
+}
+
+TEST(DiagramExportXMLTest, DiagramExportXML2) {
+	std::ifstream in;
+	ActivityDiagram diagram("diagram2");
+
+	diagram.addElement("start", "StartNode");
+	diagram.addElement("activity1", "ActivityNode");
+	diagram.addElement("activity2", "ActivityNode");
+	diagram.addElement("end", "FinalNode");
+
+	diagram.addTransition("transition1", "partida", "activity1");
+	diagram.addTransition("transition2", "activity1", "activity2");
+	diagram.addTransition("transition2", "activity2", "end");
+
+	diagram.exportXML();
+
+	in.open("ActivityDiagram.xml");
+	auto ss = ostringstream{};
+	ss << in.rdbuf();
+		
+	EXPECT_EQ("<ActivityDiagram name=\"diagram2\">\n\t<ActivityDiagramElements>\n\t\t<ActivityNode name=\"activity1\" />\n\t\t<ActivityNode name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+		ss.str()
+	);
+}
+
+TEST(DiagramExportXMLTest, DiagramExportXML3) {
+	std::ifstream in;
+	ActivityDiagram diagram("diagram3");
+
+	diagram.addElement("start", "StartNode");
+	diagram.addElement("activity1", "ActivityNode");
+	diagram.addElement("activity2", "ActivityNode");
+	diagram.addElement("end", "FinalNode");
+
+	diagram.addTransition("transition1", "partida", "activity1");
+	diagram.addTransition("transition2", "activity1", "activity2");
+	diagram.addTransition("transition2", "activity2", "end");
+
+	diagram.exportXML();
+
+	in.open("ActivityDiagram.xml");
+	auto ss = ostringstream{};
+	ss << in.rdbuf();
+		
+	EXPECT_EQ("<ActivityDiagram name=\"diagram3\">\n\t<ActivityDiagramElements>\n\t\t<ActivityNode name=\"activity1\" />\n\t\t<ActivityNode name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+		ss.str()
+	);
 }
 
 int main(int argc, char **argv) {
