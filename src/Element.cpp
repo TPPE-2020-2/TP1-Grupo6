@@ -6,10 +6,10 @@ Element::Element(string name, string type) {
 }
 
 string Element::getName() {
-	return "ex_element";
+	return this->name;
 }
 
 string Element::getType() {
- return "ex_type";
+ return this->type;
 }
 	
