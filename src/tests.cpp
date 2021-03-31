@@ -1,5 +1,6 @@
 #include "ActivityDiagram.hpp"
 #include "Element.hpp"
+#include "Transition.hpp"
 #include <gtest/gtest.h>
 
 TEST(ActivityDiagramCreationTest, DiagramCreation) {
@@ -57,6 +58,14 @@ TEST(ElementXMLTest, ElementXML3) {
 	Element element("arrival", "MergeNode");
 
 	EXPECT_EQ("<MergeNode name=\"arrival\" />", element.toXML());
+}
+
+TEST(TransitionCreationTest, TransitionCreation) {
+	Transition transition("my_transition", "my_src_element","my_dest_element");
+
+	EXPECT_EQ("my_transition", transition.getName());
+	EXPECT_EQ("my_src_element", transition.getSrc());
+	EXPECT_EQ("my_dest_element", transition.getDest());
 }
 
 int main(int argc, char **argv) {
