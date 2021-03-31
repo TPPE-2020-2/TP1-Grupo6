@@ -15,7 +15,7 @@ class ActivityDiagram {
 	public:
 		ActivityDiagram(string);
 		string getName();
-		void addElement(string, string);
+		void addElement(string, int);
 		void addTransition(string, string, string);
 		string toXML();
 		int exportXML();

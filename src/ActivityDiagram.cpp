@@ -8,7 +8,7 @@ string ActivityDiagram::getName() {
 	return this->name;
 }
 
-void ActivityDiagram::addElement(string name, string type) {
+void ActivityDiagram::addElement(string name, int type) {
 	this->elements.insert(pair<string, Element>(name, Element(name, type)));
 }
 
