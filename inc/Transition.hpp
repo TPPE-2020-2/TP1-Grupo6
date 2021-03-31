@@ -13,7 +13,7 @@ class Transition {
 		string getName();
 		string getSrc();
 		string getDest();
-		string toXML(int);
+		string toXML(int level = 0);
 
 	private:
 		string name;

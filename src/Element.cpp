@@ -16,10 +16,10 @@ string Element::getType() {
 string Element::toXML(int level) {
 	std::stringstream strStream;
 
-    for(int c = 0; c < level; c++)
-        strStream << '\t';
+	for(int c = 0; c < level; c++)
+		strStream << '\t';
 
-    strStream << "<" << this->type << " name=\"" << this->name << "\" />";
+	strStream << "<" << this->type << " name=\"" << this->name << "\" />";
 
-    return strStream.str();
+	return strStream.str();
 }

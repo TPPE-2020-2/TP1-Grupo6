@@ -102,6 +102,16 @@ TEST(TransitionXMLTest, TransitionXML3) {
 	EXPECT_EQ("<Transition name=\"my_transition3\" src=\"my_src_element3\" dest=\"my_dest_element3\" />", transition.toXML(0));
 }
 
+TEST(DiagramElementAdditionTest, DiagramElementAddition) {
+	ActivityDiagram diagram("my_diagram");
+	diagram.addElement("start", "StartNode");
+
+	Element element = diagram.getElement("start");
+
+	EXPECT_EQ("start", element.getName());
+	EXPECT_EQ("StartNode", element.getType());
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
