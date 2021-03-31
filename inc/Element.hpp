@@ -14,7 +14,7 @@ class Element {
 
 	private:
 		string name;
-		string type;
+		int type;
 };
 
 #endif

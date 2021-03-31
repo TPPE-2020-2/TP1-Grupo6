@@ -10,6 +10,12 @@ string Element::getName() {
 }
 
 string Element::getType() {
- return "actor";
+	switch(this->type) {
+		case 1:
+			return "Actor";
+
+		case 2:
+			return "Object";
+	}
 }
 	
