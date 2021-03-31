@@ -132,6 +132,17 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
 	EXPECT_EQ("DecisionNode", element.getType());
 }
 
+TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition) {
+	ActivityDiagram diagram("my_diagram");
+	diagram.addTransition("my_transition", "my_src","my_dest");
+
+	Transition transition = diagram.getTransition("my_transition");
+
+	EXPECT_EQ("my_transition", transition.getName());
+	EXPECT_EQ("my_src", transition.getSrc());
+	EXPECT_EQ("my_dest", transition.getDest());
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

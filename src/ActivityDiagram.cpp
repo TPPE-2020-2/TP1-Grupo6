@@ -15,3 +15,12 @@ void ActivityDiagram::addElement(string name, string type) {
 Element ActivityDiagram::getElement(string name) {
 	return this->elements.find(name)->second;
 }
+
+void ActivityDiagram::addTransition(string name, string src, string dest) {
+
+}
+
+Transition ActivityDiagram::getTransition(string name) {
+	return Transition("my_transition","my_src","my_dest");
+}
+
