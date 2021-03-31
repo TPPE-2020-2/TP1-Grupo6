@@ -112,6 +112,26 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition) {
 	EXPECT_EQ("StartNode", element.getType());
 }
 
+TEST(DiagramElementAdditionTest, DiagramElementAddition2) {
+	ActivityDiagram diagram("my_diagram");
+	diagram.addElement("end", "FinalNode");
+
+	Element element = diagram.getElement("end");
+
+	EXPECT_EQ("end", element.getName());
+	EXPECT_EQ("FinalNode", element.getType());
+}
+
+TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
+	ActivityDiagram diagram("my_diagram");
+	diagram.addElement("decision", "DecisionNode");
+
+	Element element = diagram.getElement("decision");
+
+	EXPECT_EQ("decision", element.getName());
+	EXPECT_EQ("DecisionNode", element.getType());
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

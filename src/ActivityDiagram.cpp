@@ -9,9 +9,9 @@ string ActivityDiagram::getName() {
 }
 
 void ActivityDiagram::addElement(string name, string type) {
-	return;
+	this->elements.insert(pair<string, Element>(name, Element(name, type)));
 }
 
 Element ActivityDiagram::getElement(string name) {
-	return Element("start", "StartNode");
+	return this->elements.find(name)->second;
 }
