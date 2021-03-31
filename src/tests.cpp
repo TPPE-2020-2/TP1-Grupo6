@@ -178,6 +178,38 @@ TEST(DiagramXMLTest, DiagramXML) {
 			 );
 }
 
+TEST(DiagramXMLTest, DiagramXML2) {
+	ActivityDiagram diagram("diagram");
+
+	diagram.addElement("start", "StartNode");
+	diagram.addElement("activity1", "ActivityNode");
+	diagram.addElement("end", "FinalNode");
+
+	diagram.addTransition("transition1", "partida", "activity1");
+	diagram.addTransition("transition2", "activity2", "end");
+
+	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<ActivityNode name=\"activity1\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity2\" dest=\"end\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+			  diagram.toXML()
+			 );
+}
+
+TEST(DiagramXMLTest, DiagramXML3) {
+	ActivityDiagram diagram("diagram");
+
+	diagram.addElement("start", "StartNode");
+	diagram.addElement("activity1", "ActivityNode");
+	diagram.addElement("activity2", "ActivityNode");
+	diagram.addElement("end", "FinalNode");
+
+	diagram.addTransition("transition1", "partida", "activity1");
+	diagram.addTransition("transition2", "activity1", "activity2");
+	diagram.addTransition("transition2", "activity2", "end");
+
+	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<ActivityNode name=\"activity1\" />\n\t\t<ActivityNode name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+			  diagram.toXML()
+			 );
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

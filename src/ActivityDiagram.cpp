@@ -25,24 +25,24 @@ Transition ActivityDiagram::getTransition(string name) {
 }
 
 string ActivityDiagram::toXML() {
-	std::stringstream strStream;
+    std::stringstream strStream;
 
-	strStream << "<ActivityDiagram name=\"" << this->name << "\">" << endl;
+    strStream << "<ActivityDiagram name=\"" << this->name << "\">" << endl;
 
-	strStream << "\t<ActivityDiagramElements>" << endl;
-	for(map<string, Element>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
-		strStream << it->second.toXML(2) << endl;
+    strStream << "\t<ActivityDiagramElements>" << endl;
+    for(map<string, Element>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
+        strStream << it->second.toXML(2) << endl;
 
-	strStream << "\t</ActivityDiagramElements>" << endl;
+    strStream << "\t</ActivityDiagramElements>" << endl;
 
-	strStream << "\t<ActivityDiagramTransitions>" << endl;
-	for(map<string, Transition>::iterator it=this->transitions.begin(); it != this->transitions.end(); ++it)
-		strStream << it->second.toXML(2) << endl;
+    strStream << "\t<ActivityDiagramTransitions>" << endl;
+    for(map<string, Transition>::iterator it=this->transitions.begin(); it != this->transitions.end(); ++it)
+        strStream << it->second.toXML(2) << endl;
 
-	strStream << "\t</ActivityDiagramTransitions>" << endl;
+    strStream << "\t</ActivityDiagramTransitions>" << endl;
 
-	strStream << "</ActivityDiagram>";
+    strStream << "</ActivityDiagram>";
 
-	return strStream.str();
+    return strStream.str();
 }
 
