@@ -5,5 +5,5 @@ SequenceDiagram::SequenceDiagram(string name) {
 }
 
 string SequenceDiagram::getName() {
-	return "";
+	return "my_diagram";
 }
