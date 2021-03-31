@@ -143,6 +143,28 @@ TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition) {
 	EXPECT_EQ("my_dest", transition.getDest());
 }
 
+TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition2) {
+	ActivityDiagram diagram("my_diagram2");
+	diagram.addTransition("my_transition2", "my_src2","my_dest2");
+
+	Transition transition = diagram.getTransition("my_transition2");
+
+	EXPECT_EQ("my_transition2", transition.getName());
+	EXPECT_EQ("my_src2", transition.getSrc());
+	EXPECT_EQ("my_dest2", transition.getDest());
+}
+
+TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition3) {
+	ActivityDiagram diagram("my_diagram3");
+	diagram.addTransition("my_transition3", "my_src3","my_dest3");
+
+	Transition transition = diagram.getTransition("my_transition3");
+
+	EXPECT_EQ("my_transition3", transition.getName());
+	EXPECT_EQ("my_src3", transition.getSrc());
+	EXPECT_EQ("my_dest3", transition.getDest());
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

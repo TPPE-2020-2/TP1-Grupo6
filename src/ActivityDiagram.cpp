@@ -17,10 +17,10 @@ Element ActivityDiagram::getElement(string name) {
 }
 
 void ActivityDiagram::addTransition(string name, string src, string dest) {
-
+	this->transitions.insert(pair<string, Transition>(name,Transition(name,src,dest)));
 }
 
 Transition ActivityDiagram::getTransition(string name) {
-	return Transition("my_transition","my_src","my_dest");
+	return this->transitions.find(name)->second;
 }
 
