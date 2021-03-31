@@ -14,5 +14,12 @@ string Element::getType() {
 }
 
 string Element::toXML(int level) {
-	return "<StartNode name=\"my_element\" />";
+	std::stringstream strStream;
+
+    for(int c = 0; c < level; c++)
+        strStream << '\t';
+
+    strStream << "<" << this->type << " name=\"" << this->name << "\" />";
+
+    return strStream.str();
 }

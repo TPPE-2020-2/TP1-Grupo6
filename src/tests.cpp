@@ -47,6 +47,18 @@ TEST(ElementXMLTest, ElementXML) {
 	EXPECT_EQ("<StartNode name=\"my_element\" />", element.toXML());
 }
 
+TEST(ElementXMLTest, ElementXML2) {
+	Element element("endnode", "EndNode");
+
+	EXPECT_EQ("\t<EndNode name=\"endnode\" />", element.toXML(1));
+}
+
+TEST(ElementXMLTest, ElementXML3) {
+	Element element("arrival", "MergeNode");
+
+	EXPECT_EQ("<MergeNode name=\"arrival\" />", element.toXML());
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
