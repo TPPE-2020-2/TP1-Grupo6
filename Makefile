@@ -15,7 +15,7 @@ all: objFolder $(PROJECT_NAME)
 test: objFolder tests
 
 tests: $(OBJ)
-	$(CC) -o test.bin src/tests.cpp $(filter-out obj/main.o, $^) -I inc -L lib -lgtest -pthread
+	$(CC) -o test.bin teste/main.cpp $(filter-out obj/main.o, $^) -I inc -L lib -lgtest -pthread
 
 clean:
 	rm -rf obj/*.o *.bin
