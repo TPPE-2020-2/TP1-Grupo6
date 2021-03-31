@@ -2,22 +2,22 @@
 #include <gtest/gtest.h>
 
 TEST(ElementCreationTest, ElementCreation) {
-	Element element("ex_element","ex_type");
+	Element element("ex_element",1);
 
 	EXPECT_EQ("ex_element", element.getName());
-	EXPECT_EQ("ex_type", element.getType());
+	EXPECT_EQ("actor", element.getType());
 }
 
 TEST(ElementCreationTest, ElementCreation2) {
-	Element element("ex_element2","ex_type2");
+	Element element("ex_element2",1);
 
 	EXPECT_EQ("ex_element2", element.getName());
-	EXPECT_EQ("ex_type2", element.getType());
+	EXPECT_EQ("actor", element.getType());
 }
 
 TEST(ElementCreationTest, ElementCreation3) {
-	Element element("ex_element3","ex_type3");
+	Element element("ex_element3",1);
 
 	EXPECT_EQ("ex_element3", element.getName());
-	EXPECT_EQ("ex_type3", element.getType());
+	EXPECT_EQ("actor", element.getType());
 }

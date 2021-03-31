@@ -7,7 +7,7 @@ using namespace std;
 
 class Element {
 	public:
-		Element(string,string);
+		Element(string,int);
 		string getName();
 		string toXML();
 		string getType();

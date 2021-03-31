@@ -1,6 +1,6 @@
 #include "Element.hpp"
 
-Element::Element(string name, string type) {
+Element::Element(string name, int type) {
 	this->name = name;
 	this->type = type;
 }
@@ -10,6 +10,6 @@ string Element::getName() {
 }
 
 string Element::getType() {
- return this->type;
+ return "actor";
 }
 	
