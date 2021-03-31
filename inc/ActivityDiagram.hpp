@@ -2,6 +2,8 @@
 #define ACTIVITY_DIAGRAM_H
 
 #include <string>
+#include <ostream>
+#include <sstream>
 #include <map>
 #include "Element.hpp"
 #include "Transition.hpp"

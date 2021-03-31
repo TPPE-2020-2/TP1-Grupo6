@@ -165,6 +165,19 @@ TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition3) {
 	EXPECT_EQ("my_dest3", transition.getDest());
 }
 
+TEST(DiagramXMLTest, DiagramXML) {
+	ActivityDiagram diagram("diagrama_mio");
+
+	diagram.addElement("partida", "StartNode");
+	diagram.addElement("finale", "FinalNode");
+
+	diagram.addTransition("transition1", "partida", "finale");
+
+	EXPECT_EQ("<ActivityDiagram name=\"diagrama_mio\">\n\t<ActivityDiagramElements>\n\t\t<FinalNode name=\"finale\" />\n\t\t<StartNode name=\"partida\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"finale\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+			  diagram.toXML()
+			 );
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
