@@ -4,6 +4,7 @@
 #include <string>
 #include <ostream>
 #include <sstream>
+#include <fstream>
 #include <map>
 #include "Element.hpp"
 #include "Transition.hpp"

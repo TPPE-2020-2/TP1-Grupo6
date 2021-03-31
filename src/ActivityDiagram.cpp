@@ -46,3 +46,11 @@ string ActivityDiagram::toXML() {
     return strStream.str();
 }
 
+int ActivityDiagram::exportXML(){
+	std::ofstream out;
+	out.open("ActivityDiagram.xml");
+	auto xml = this->toXML();
+	out << xml;
+	out.close();
+	return 1;
+}
