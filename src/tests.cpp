@@ -68,6 +68,12 @@ TEST(TransitionCreationTest, TransitionCreation) {
 	EXPECT_EQ("my_dest_element", transition.getDest());
 }
 
+TEST(TransitionXMLTest, TransitionXML) {
+	Transition transition("my_transition", "my_src_element","my_dest_element");
+
+	EXPECT_EQ("<Transition name = my_transition src = my_src_element dest = my_dest_element />", transition.toXML(0));
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

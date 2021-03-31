@@ -7,15 +7,15 @@ Transition::Transition(string name, string src, string dest) {
 }
 
 string Transition::getName() {
-	return "my_transition";
+	return this->name;
 }
 
 string Transition::getSrc() {
-	return "my_src_element";
+	return this->src;
 }
 
 string Transition::getDest() {
-	return "my_dest_element";
+	return this->dest;
 }
 
 string Transition::toXML(int level) {
