@@ -41,6 +41,12 @@ TEST(ElementCreationTest, ElementCreation3) {
 	EXPECT_EQ("ex_type3", element.getType());
 }
 
+TEST(ElementXMLTest, ElementXML) {
+	Element element("my_element", "StartNode");
+
+	EXPECT_EQ("<StartNode name=\"my_element\" />", element.toXML());
+}
+
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

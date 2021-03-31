@@ -2,6 +2,8 @@
 #define ELEMENT_H
 
 #include <string>
+#include <ostream>
+#include <sstream>
 
 using namespace std;
 
@@ -9,7 +11,7 @@ class Element {
 	public:
 		Element(string,string);
 		string getName();
-		string toXML();
+		string toXML(int level = 0);
 		string getType();
 
 	private:

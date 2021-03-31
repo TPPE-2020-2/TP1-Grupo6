@@ -10,6 +10,9 @@ string Element::getName() {
 }
 
 string Element::getType() {
- return this->type;
+	return this->type;
 }
-	
+
+string Element::toXML(int level) {
+	return "<StartNode name=\"my_element\" />";
+}
