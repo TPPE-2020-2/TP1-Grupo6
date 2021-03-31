@@ -68,10 +68,38 @@ TEST(TransitionCreationTest, TransitionCreation) {
 	EXPECT_EQ("my_dest_element", transition.getDest());
 }
 
+TEST(TransitionCreationTest, TransitionCreation2) {
+	Transition transition("my_transition2", "my_src_element2","my_dest_element2");
+
+	EXPECT_EQ("my_transition2", transition.getName());
+	EXPECT_EQ("my_src_element2", transition.getSrc());
+	EXPECT_EQ("my_dest_element2", transition.getDest());
+}
+
+TEST(TransitionCreationTest, TransitionCreation3) {
+	Transition transition("my_transition3", "my_src_element3","my_dest_element3");
+
+	EXPECT_EQ("my_transition3", transition.getName());
+	EXPECT_EQ("my_src_element3", transition.getSrc());
+	EXPECT_EQ("my_dest_element3", transition.getDest());
+}
+
 TEST(TransitionXMLTest, TransitionXML) {
 	Transition transition("my_transition", "my_src_element","my_dest_element");
 
-	EXPECT_EQ("<Transition name = my_transition src = my_src_element dest = my_dest_element />", transition.toXML(0));
+	EXPECT_EQ("<Transition name=\"my_transition\" src=\"my_src_element\" dest=\"my_dest_element\" />", transition.toXML(0));
+}
+
+TEST(TransitionXMLTest, TransitionXML2) {
+	Transition transition("my_transition2", "my_src_element2","my_dest_element2");
+
+	EXPECT_EQ("<Transition name=\"my_transition2\" src=\"my_src_element2\" dest=\"my_dest_element2\" />", transition.toXML(0));
+}
+
+TEST(TransitionXMLTest, TransitionXML3) {
+	Transition transition("my_transition3", "my_src_element3","my_dest_element3");
+
+	EXPECT_EQ("<Transition name=\"my_transition3\" src=\"my_src_element3\" dest=\"my_dest_element3\" />", transition.toXML(0));
 }
 
 int main(int argc, char **argv) {

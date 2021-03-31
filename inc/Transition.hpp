@@ -2,6 +2,8 @@
 #define TRANSITION_H
 
 #include <string>
+#include <ostream>
+#include <sstream>
 
 using namespace std;
 

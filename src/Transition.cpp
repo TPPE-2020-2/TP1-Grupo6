@@ -19,6 +19,12 @@ string Transition::getDest() {
 }
 
 string Transition::toXML(int level) {
+	std::stringstream strStream;
 
-    return "<Transition name = my_transition src = my_src_element dest = my_dest_element />";
+    for(int c = 0; c < level; c++)
+        strStream << '\t';
+
+    strStream << "<Transition name=\"" << this->name << "\" src=\"" << this->src <<"\" dest=\"" << this->dest <<"\" />";
+
+    return strStream.str();
 }
