@@ -16,6 +16,18 @@ string Element::getType() {
 
 		case 2:
 			return "Object";
+		
+		case 3:
+			return "Message";
+
+		case 4:
+			return "Reply";
+
+		case 5:
+			return "Alternative Frame";
+
+		case 6:
+			return "Lifeline";
 	}
 }
 	
