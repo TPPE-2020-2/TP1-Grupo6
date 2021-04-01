@@ -2,6 +2,8 @@
 #define ELEMENT_H
 
 #include <string>
+#include <ostream>
+#include <sstream>
 
 using namespace std;
 
