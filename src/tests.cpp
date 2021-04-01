@@ -1,6 +1,7 @@
 #include "ActivityDiagram.hpp"
 #include "StartNode.hpp"
 #include "DecisionNode.hpp"
+#include "MergeNode.hpp"
 #include "Transition.hpp"
 #include <gtest/gtest.h>
 #include <fstream>
@@ -59,6 +60,24 @@ TEST(DecisionNodeCreationTest, DecisionNodeCreation3) {
 	EXPECT_EQ("my_decisionNode3", decisionNode.getName());
 }
 
+TEST(MergeNodeCreationTest, MergeNodeCreation) {
+	MergeNode mergeNode("my_mergeNode");
+
+	EXPECT_EQ("my_mergeNode", mergeNode.getName());
+}
+
+TEST(MergeNodeCreationTest, MergeNodeCreation2) {
+	MergeNode mergeNode("my_mergeNode2");
+
+	EXPECT_EQ("my_mergeNode2", mergeNode.getName());
+}
+
+TEST(MergeNodeCreationTest, MergeNodeCreation3) {
+	MergeNode mergeNode("my_mergeNode3");
+
+	EXPECT_EQ("my_mergeNode3", mergeNode.getName());
+}
+
 TEST(StartNodeXMLTest, StartNodeXML) {
 	StartNode startNode("my_element");
 
@@ -93,6 +112,24 @@ TEST(DecisionNodeXMLTest, DecisionNodeXML3) {
 	DecisionNode decisionNode("hairy_decision");
 
 	EXPECT_EQ("<DecisionNode name=\"hairy_decision\" />", decisionNode.toXML());
+}
+
+TEST(MergeNodeXMLTest, MergeNodeXML) {
+	MergeNode mergeNode("messy_merge");
+
+	EXPECT_EQ("<MergeNode name=\"messy_merge\" />", mergeNode.toXML());
+}
+
+TEST(MergeNodeXMLTest, MergeNodeXML2) {
+	MergeNode mergeNode("git_merge_master");
+
+	EXPECT_EQ("<MergeNode name=\"git_merge_master\" />", mergeNode.toXML());
+}
+
+TEST(MergeNodeXMLTest, MergeNodeXML3) {
+	MergeNode mergeNode("merging");
+
+	EXPECT_EQ("<MergeNode name=\"merging\" />", mergeNode.toXML());
 }
 
 /*TEST(ElementXMLTest, ElementXML2) {

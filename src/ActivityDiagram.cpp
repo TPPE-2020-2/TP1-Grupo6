@@ -1,5 +1,7 @@
 #include "ActivityDiagram.hpp"
 #include "StartNode.hpp"
+#include "MergeNode.hpp"
+#include "DecisionNode.hpp"
 #include <stdexcept>
 #include <iostream>
 
@@ -16,6 +18,12 @@ void ActivityDiagram::addElement(string name, int type) {
 		case 1:
 			this->elements.insert(pair<string, Element>(name, StartNode(name)));
 			break;
+		case 3:
+			this->elements.insert(pair<string, Element>(name, DecisionNode(name)));
+			break;
+		case 4:
+			this->elements.insert(pair<string, Element>(name, MergeNode(name)));
+			break;
 	}
 }
 
@@ -25,8 +33,10 @@ Element ActivityDiagram::getElement(string name) {
 
 void ActivityDiagram::addTransition(string name, string src, string dest) {
 	auto srcE = this->elements.find(src)->second;
+	auto destE = this->elements.find(src)->second;
 	try{
 		srcE.addTransition(0);
+		destE.addTransition(1);
 		this->transitions.insert(pair<string, Transition>(name,Transition(name,src,dest)));	
 		} catch(const std::invalid_argument& e){
 		
