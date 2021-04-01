@@ -9,14 +9,17 @@ using namespace std;
 
 class Element {
 	public:
-		Element(string, int);
+		Element(string);
 		string getName();
 		string toXML(int level = 0);
-		string getType();
-
-	private:
+		virtual string getType();
+		bool checkSourceAvailability();
+		bool checkDestinationAvailability();
+		void addTransition(int);
+		int getTransitions();
+	protected:
+		int transitions;
 		string name;
-		int type;
 };
 
 #endif

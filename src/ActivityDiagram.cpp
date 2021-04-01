@@ -1,4 +1,7 @@
 #include "ActivityDiagram.hpp"
+#include "StartNode.hpp"
+#include <stdexcept>
+#include <iostream>
 
 ActivityDiagram::ActivityDiagram(string name) {
 	this->name = name;
@@ -9,7 +12,11 @@ string ActivityDiagram::getName() {
 }
 
 void ActivityDiagram::addElement(string name, int type) {
-	this->elements.insert(pair<string, Element>(name, Element(name, type)));
+	switch(type){
+		case 1:
+			this->elements.insert(pair<string, Element>(name, StartNode(name)));
+			break;
+	}
 }
 
 Element ActivityDiagram::getElement(string name) {
@@ -17,7 +24,13 @@ Element ActivityDiagram::getElement(string name) {
 }
 
 void ActivityDiagram::addTransition(string name, string src, string dest) {
-	this->transitions.insert(pair<string, Transition>(name,Transition(name,src,dest)));
+	auto srcE = this->elements.find(src)->second;
+	try{
+		srcE.addTransition(0);
+		this->transitions.insert(pair<string, Transition>(name,Transition(name,src,dest)));	
+		} catch(const std::invalid_argument& e){
+		
+		}
 }
 
 Transition ActivityDiagram::getTransition(string name) {

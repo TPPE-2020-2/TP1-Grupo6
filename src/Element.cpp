@@ -1,31 +1,16 @@
 #include "Element.hpp"
+#include <stdexcept>
 
-Element::Element(string name, int type) {
+Element::Element(string name) {
 	this->name = name;
-	this->type = type;
 }
 
 string Element::getName() {
 	return this->name;
 }
 
-string Element::getType() {
-	switch(this->type) {
-		case 1:
-			return "StartNode";
-
-		case 2:
-			return "Activity";
-
-		case 3:
-			return "DecisionNode";
-
-		case 4:
-			return "MergeNode";
-
-		case 5:
-			return "FinalNode";
-	}
+int Element::getTransitions(){
+	return this->transitions;
 }
 
 string Element::toXML(int level) {
@@ -38,3 +23,27 @@ string Element::toXML(int level) {
 
 	return strStream.str();
 }
+
+bool Element::checkSourceAvailability(){
+	return true;
+}
+
+bool Element::checkDestinationAvailability(){
+	return true;
+}
+
+void Element::addTransition(int type){
+	if(!type){ // 0 == source / 1 == destination
+		if(this->checkSourceAvailability()){
+			this->transitions++;
+		} else {
+			throw std::invalid_argument("ActivityDiagramRuleException");
+		}
+	} else if(this->checkDestinationAvailability()){
+		this->transitions++;
+	} else {
+		throw std::invalid_argument("ActivityDiagramRuleException");
+	}
+}
+
+string Element::getType() { return "sample";}
