@@ -1,5 +1,6 @@
 #include "ActivityDiagram.hpp"
 #include "StartNode.hpp"
+#include "DecisionNode.hpp"
 #include "Transition.hpp"
 #include <gtest/gtest.h>
 #include <fstream>
@@ -40,10 +41,58 @@ TEST(StartNodeCreationTest, StartNodeCreation3) {
 	EXPECT_EQ("my_startNode3", startNode.getName());
 }
 
+TEST(DecisionNodeCreationTest, DecisionNodeCreation) {
+	DecisionNode decisionNode("my_decisionNode");
+
+	EXPECT_EQ("my_decisionNode", decisionNode.getName());
+}
+
+TEST(DecisionNodeCreationTest, DecisionNodeCreation2) {
+	DecisionNode decisionNode("my_decisionNode2");
+
+	EXPECT_EQ("my_decisionNode2", decisionNode.getName());
+}
+
+TEST(DecisionNodeCreationTest, DecisionNodeCreation3) {
+	DecisionNode decisionNode("my_decisionNode3");
+
+	EXPECT_EQ("my_decisionNode3", decisionNode.getName());
+}
+
 TEST(StartNodeXMLTest, StartNodeXML) {
 	StartNode startNode("my_element");
 
-	EXPECT_EQ("<StartNode name=\"my_element\" />", startNode.toXML(0));
+	EXPECT_EQ("<StartNode name=\"my_element\" />", startNode.toXML());
+}
+
+TEST(StartNodeXMLTest, StartNodeXML2) {
+	StartNode startNode("the_beginning_of_the_end");
+
+	EXPECT_EQ("<StartNode name=\"the_beginning_of_the_end\" />", startNode.toXML());
+}
+
+TEST(StartNodeXMLTest, StartNodeXML3) {
+	StartNode startNode("wololooo");
+
+	EXPECT_EQ("<StartNode name=\"wololooo\" />", startNode.toXML(0));
+}
+
+TEST(DecisionNodeXMLTest, DecisionNodeXML) {
+	DecisionNode decisionNode("decision1");
+
+	EXPECT_EQ("<DecisionNode name=\"decision1\" />", decisionNode.toXML());
+}
+
+TEST(DecisionNodeXMLTest, DecisionNodeXML2) {
+	DecisionNode decisionNode("precise_decision");
+
+	EXPECT_EQ("<DecisionNode name=\"precise_decision\" />", decisionNode.toXML());
+}
+
+TEST(DecisionNodeXMLTest, DecisionNodeXML3) {
+	DecisionNode decisionNode("hairy_decision");
+
+	EXPECT_EQ("<DecisionNode name=\"hairy_decision\" />", decisionNode.toXML());
 }
 
 /*TEST(ElementXMLTest, ElementXML2) {

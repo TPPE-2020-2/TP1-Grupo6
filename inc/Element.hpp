@@ -16,9 +16,9 @@ class Element {
 		bool checkSourceAvailability();
 		bool checkDestinationAvailability();
 		void addTransition(int);
-		int getTransitions();
+		
 	protected:
-		int transitions;
+		int sourceTransitions, destinationTransitions;
 		string name;
 };
 

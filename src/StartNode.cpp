@@ -4,7 +4,7 @@
 StartNode::StartNode(string name) : Element(name) {}
 
 bool StartNode::checkSourceAvailability(){
-	if(this->transitions == 0){
+	if(this->sourceTransitions == 0){
 		return true;
 	} else {
 		return false;	

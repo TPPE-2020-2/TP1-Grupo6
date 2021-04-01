@@ -9,10 +9,6 @@ string Element::getName() {
 	return this->name;
 }
 
-int Element::getTransitions(){
-	return this->transitions;
-}
-
 string Element::toXML(int level) {
 	std::stringstream strStream;
 
@@ -35,12 +31,12 @@ bool Element::checkDestinationAvailability(){
 void Element::addTransition(int type){
 	if(!type){ // 0 == source / 1 == destination
 		if(this->checkSourceAvailability()){
-			this->transitions++;
+			this->sourceTransitions++;
 		} else {
 			throw std::invalid_argument("ActivityDiagramRuleException");
 		}
 	} else if(this->checkDestinationAvailability()){
-		this->transitions++;
+		this->destinationTransitions++;
 	} else {
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
