@@ -1,5 +1,7 @@
 #include "SequenceDiagram.hpp"
 
+// SequenceDiagramXML::SequenceDiagramXML() {}
+
 SequenceDiagramXML::Message::Message(string name){
   this->name = name;
   this->orig = "";
@@ -84,15 +86,7 @@ string SequenceDiagramXML::SequenceDiagram::getName() {
 void SequenceDiagramXML::SequenceDiagram::addLifelines(string lifeline){
   this->lifelines.push_back(lifeline);
 }
-
-void SequenceDiagramXML::SequenceDiagram::addMessage(Message message){
-  if(message.getName().empty() || message.getOrig().empty() || message.getDest().empty() || isnan(message.getProb())){
-    throw "MessageFormatException";
-  }
-  else{
-    this->messages.push_back(message);
-  }
-}
+SequenceDiagram
 
 void SequenceDiagramXML::SequenceDiagram::addFragment(Fragment fragment){
   if(fragment.getName().empty() || fragment.getSeqDiagram().empty()){
@@ -141,6 +135,10 @@ vector<string> SequenceDiagramXML::getAllDiagramName(){
   }
 
   return all_names;
+}
+
+void SequenceDiagramXML::addDiagram(SequenceDiagramXML::SequenceDiagram qqn) {
+  this->seq_diagrams.push_back(qqn);
 }
 
 

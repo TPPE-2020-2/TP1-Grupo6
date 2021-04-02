@@ -13,14 +13,15 @@ using namespace std;
 
 class SequenceDiagramXML {
 	public:
+  // SequenceDiagramXML();
+
     // Sub-classes
     class Message{
       public:
         // Constructor
         Message(string);
 
-        // Set Functions
-        void setType(string);
+        // Set Functions]
         void setOrig(SequenceDiagramXML,string);
         void setDest(SequenceDiagramXML,string);
         void setProb(double);
@@ -82,6 +83,7 @@ class SequenceDiagramXML {
     vector<string> getAllLifelines();
     vector<Fragment> getAllFragments();
     vector<string> getAllDiagramName();
+    void addDiagram(SequenceDiagram);
 
     // XML Functions
 		// string toXML();
