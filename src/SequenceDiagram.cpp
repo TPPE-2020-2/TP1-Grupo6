@@ -86,7 +86,16 @@ string SequenceDiagramXML::SequenceDiagram::getName() {
 void SequenceDiagramXML::SequenceDiagram::addLifelines(string lifeline){
   this->lifelines.push_back(lifeline);
 }
-SequenceDiagram
+
+void SequenceDiagramXML::SequenceDiagram::addMessage(Message message){
+  if(message.getName().empty() || message.getOrig().empty() || message.getDest().empty() || isnan(message.getProb())){
+    throw "MessageFormatException";
+  }
+  else{
+    this->messages.push_back(message);
+    // cout << "addMessage() this->messages.size() " << this->messages.size() << endl;
+  }
+}
 
 void SequenceDiagramXML::SequenceDiagram::addFragment(Fragment fragment){
   if(fragment.getName().empty() || fragment.getSeqDiagram().empty()){
@@ -102,6 +111,7 @@ std::vector<string> SequenceDiagramXML::SequenceDiagram::getLifelines(){
 }
 
 std::vector<SequenceDiagramXML::Message> SequenceDiagramXML::SequenceDiagram::getMessages(){
+  cout << "getMessages() this->messages.size() " << this->messages.size() << endl;
   return this->messages;
 }
 
@@ -117,6 +127,15 @@ std::vector<string> SequenceDiagramXML::getAllLifelines(){
   }
 
   return all_lifelines;
+}
+
+std::vector<SequenceDiagramXML::Message> SequenceDiagramXML::getAllMessages(){
+  std::vector<SequenceDiagramXML::Message> all_message;
+  for(SequenceDiagram& s: this->seq_diagrams){
+    std::vector<SequenceDiagramXML::Message> messages = s.getMessages();
+    all_message.insert(all_message.end(), messages.begin(), messages.end());
+  }
+  return all_message;
 }
 
 std::vector<SequenceDiagramXML::Fragment> SequenceDiagramXML::getAllFragments(){

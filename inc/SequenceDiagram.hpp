@@ -7,6 +7,7 @@
 #include <limits>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 #include "Element.hpp"
 
 using namespace std;
@@ -81,6 +82,7 @@ class SequenceDiagramXML {
 
     // Get Functions
     vector<string> getAllLifelines();
+    vector<Message> getAllMessages();
     vector<Fragment> getAllFragments();
     vector<string> getAllDiagramName();
     void addDiagram(SequenceDiagram);
