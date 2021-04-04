@@ -270,6 +270,54 @@ TEST(ElementExceptionTest, StartNodeExportException) {
 	}
 }
 
+TEST(ElementExceptionTest, ElementNameException) {
+	ActivityDiagram diagram("test_diagram");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("activity1", 2);
+	diagram.addElement("final",5);
+	diagram.addTransition("transition1", "activity1", "final");
+
+	try {
+		diagram.addElement("activity1",2);
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(ElementExceptionTest, ElementNameException2) {
+	ActivityDiagram diagram("test_diagram");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("activity1", 2);
+	diagram.addElement("final",5);
+	diagram.addTransition("transition1", "activity1", "final");
+
+	try {
+		diagram.addElement("final",2);
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(ElementExceptionTest, ElementNameException3) {
+	ActivityDiagram diagram("test_diagram");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("activity1", 2);
+	diagram.addElement("final",5);
+	diagram.addTransition("transition1", "activity1", "final");
+
+	try {
+		diagram.addElement("start",2);
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
 TEST(TransitionCreationTest, TransitionCreation) {
 	Transition transition("my_transition", "my_src_element","my_dest_element");
 
