@@ -85,14 +85,15 @@ class SequenceDiagramXML {
     vector<Message> getAllMessages();
     vector<Fragment> getAllFragments();
     vector<string> getAllDiagramName();
-    void addDiagram(SequenceDiagram);
+    vector<SequenceDiagram*> getAllDiagram();
+    void addDiagram(SequenceDiagram*);
 
     // XML Functions
 		// string toXML();
 		// int exportXML();
 
 	private:
-    vector<SequenceDiagram> seq_diagrams;
+    vector<SequenceDiagram*> seq_diagrams;
 };
 
 #endif
