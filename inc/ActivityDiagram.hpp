@@ -21,11 +21,14 @@ class ActivityDiagram {
 		int exportXML();
 		Element* getElement(string);
 		Transition getTransition(string);
+		bool checkName(string);
 
 	private:
 		string name;
 		map<string, Element*> elements;
 		map<string, Transition> transitions;
+		bool hasStart;
+		bool hasFinal;
 };
 
 #endif

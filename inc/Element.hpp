@@ -15,7 +15,8 @@ class Element {
 		string toXML(int level = 0);
 		virtual string getType();
 		void addTransition(int);
-		
+
+
 	protected:
 		virtual bool checkSourceAvailability();
 		virtual bool checkDestinationAvailability();

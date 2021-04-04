@@ -7,8 +7,19 @@
 #include <stdexcept>
 #include <iostream>
 
+bool ActivityDiagram::checkName(string name)
+{
+	if(this->elements.find(name) == this->elements.end()){
+		return true;
+	} else {
+		return false;
+	}
+}
+
 ActivityDiagram::ActivityDiagram(string name) {
 	this->name = name;
+	this->hasStart = false;
+	this->hasFinal = false;
 }
 
 string ActivityDiagram::getName() {
@@ -16,22 +27,30 @@ string ActivityDiagram::getName() {
 }
 
 void ActivityDiagram::addElement(string name, int type) {
-	switch(type){
-		case 1:
-			this->elements.insert(pair<string, Element*>(name, new StartNode(name)));
-			break;
-		case 2:
-			this->elements.insert(pair<string, Element*>(name, new Activity(name)));
-			break;
-		case 3:
-			this->elements.insert(pair<string, Element*>(name, new DecisionNode(name)));
-			break;
-		case 4:
-			this->elements.insert(pair<string, Element*>(name, new MergeNode(name)));
-			break;
-		case 5:
-			this->elements.insert(pair<string, Element*>(name, new FinalNode(name)));
-			break;
+	bool check = this->checkName(name);
+	if(check){
+		switch(type){
+			case 1:
+				if(this->hasStart) throw std::invalid_argument("ActivityDiagramRuleException");
+				this->elements.insert(pair<string, Element*>(name, new StartNode(name)));
+				this->hasStart = true;
+				break;
+			case 2:
+				this->elements.insert(pair<string, Element*>(name, new Activity(name)));
+				break;
+			case 3:
+				this->elements.insert(pair<string, Element*>(name, new DecisionNode(name)));
+				break;
+			case 4:
+				this->elements.insert(pair<string, Element*>(name, new MergeNode(name)));
+				break;
+			case 5:
+				this->elements.insert(pair<string, Element*>(name, new FinalNode(name)));
+				this->hasFinal = true;
+				break;
+		}
+	} else {
+		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 }
 
@@ -74,10 +93,14 @@ string ActivityDiagram::toXML() {
 }
 
 int ActivityDiagram::exportXML(){
-	std::ofstream out;
-	auto xml = this->toXML();
-	out.open("ActivityDiagram.xml");
-	out << xml;
-	out.close();
-	return 1;
+	if(this->hasFinal && this->hasStart){
+		std::ofstream out;
+		auto xml = this->toXML();
+		out.open("ActivityDiagram.xml");
+		out << xml;
+		out.close();
+		return 1;
+	} else {
+		throw std::invalid_argument("ActivityDiagramRuleException");
+	}
 }
