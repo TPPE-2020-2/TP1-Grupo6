@@ -185,3 +185,66 @@ TEST(MessageCreationTest, MessageCreation1) {
 
 	EXPECT_EQ("my_message", message.getName());
 }
+
+TEST(ToXMLTest, ToXMLTest1){
+  SequenceDiagramXML diagram;
+  SequenceDiagramXML::SequenceDiagram * seq_diagram = new SequenceDiagramXML::SequenceDiagram("my_seq_diagram");
+  SequenceDiagramXML::SequenceDiagram * seq_diagram2 = new SequenceDiagramXML::SequenceDiagram("my_seq_diagram2");
+  seq_diagram->addLifelines("ll");
+  seq_diagram->addLifelines("ll1");
+  diagram.addDiagram(seq_diagram);
+  diagram.addDiagram(seq_diagram2);
+
+  SequenceDiagramXML::Message message1("message1");
+  SequenceDiagramXML::Message message2("message2");
+
+  message1.setOrig(diagram, "ll");
+  message1.setDest(diagram, "ll1");
+  message1.setProb(0.45);
+
+  message2.setOrig(diagram, "ll1");
+  message2.setDest(diagram, "ll1");
+  message2.setProb(0.67);
+
+  SequenceDiagramXML::Fragment frag("my_frag");
+  frag.setSeqDiagram(diagram, "my_seq_diagram2");
+
+  seq_diagram2->addLifelines("ll2");
+  seq_diagram2->addLifelines("ll2.1");
+
+  SequenceDiagramXML::Message msg("msg");
+  msg.setOrig(diagram, "ll2");
+  msg.setDest(diagram, "ll2.1");
+  msg.setProb(0.5);
+
+  seq_diagram2->addMessage(msg);
+
+  seq_diagram->addMessage(message1);
+  seq_diagram->addMessage(message2);
+  seq_diagram->addFragment(frag);
+
+  string answ = "<SequenceDiagrams>\n"
+                "\t<Lifelines>\n"
+                "\t\t<Lifeline name=\"ll\" />\n"
+                "\t\t<Lifeline name=\"ll1\" />\n"
+                "\t\t<Lifeline name=\"ll2\" />\n"
+                "\t\t<Lifeline name=\"ll2.1\" />\n"
+                "\t</Lifelines>\n"
+                "\t<Fragments>\n"
+                "\t\t<Optional name=\"my_frag\" representedBy=\"my_seq_diagram2\" />\n"
+                "\t</Fragments>\n"
+                "\t<SequenceDiagram name=\"my_seq_diagram\">\n"
+                "\t\t<Message name=\"message1\" prob=\"0.45\" source=\"ll\" target=\"ll1\" />\n"
+                "\t\t<Message name=\"message2\" prob=\"0.67\" source=\"ll1\" target=\"ll1\" />\n"
+                "\t\t<Fragment name=\"my_frag\" />\n"
+                "\t</SequenceDiagram>\n"
+                "\t<SequenceDiagram name=\"my_seq_diagram2\">\n"
+                "\t\t<Message name=\"msg\" prob=\"0.5\" source=\"ll2\" target=\"ll2.1\" />\n"
+                "\t</SequenceDiagram>\n"
+                "</SequenceDiagrams>";
+
+//  cout << answ << endl;
+//  cout << endl << diagram.toXML() << endl;
+
+  EXPECT_EQ(answ, diagram.toXML());
+}

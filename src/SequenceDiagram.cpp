@@ -168,7 +168,47 @@ void SequenceDiagramXML::addDiagram(SequenceDiagramXML::SequenceDiagram* qqn) {
   this->seq_diagrams.push_back(qqn);
 }
 
+string SequenceDiagramXML::toXML(){
+  stringstream str_stream;
 
+  str_stream << "<SequenceDiagrams>\n";
+
+  str_stream << "\t<Lifelines>\n";
+  vector<string> all_lifelines = this->getAllLifelines();
+
+  for(string& s: all_lifelines){
+    str_stream << "\t\t<Lifeline name=\"" << s << "\" />\n";
+  }
+
+  str_stream << "\t</Lifelines>\n";
+
+  str_stream << "\t<Fragments>\n";
+  vector<SequenceDiagramXML::Fragment> f = this->getAllFragments();
+
+  for(SequenceDiagramXML::Fragment& fg: f){
+    str_stream << "\t\t<Optional name=\"" << fg.getName() << "\" representedBy=\"" << fg.getSeqDiagram() << "\" />\n";
+  }
+
+  str_stream << "\t</Fragments>\n";
+
+  vector<SequenceDiagramXML::SequenceDiagram*>sd = this->getAllDiagram();
+
+  for(SequenceDiagramXML::SequenceDiagram* s: sd){
+    str_stream << "\t<SequenceDiagram name=\"" << s->getName() << "\">\n";
+    for(SequenceDiagramXML::Message& m: s->getMessages()){
+      str_stream << "\t\t<Message name=\"" << m.getName() << "\" prob=\"" << m.getProb() << "\" source=\"" << m.getOrig() << "\" target=\"" << m.getDest() << "\" />\n";
+    }
+    for(SequenceDiagramXML::Fragment& fr: s->getFragments()){
+      str_stream << "\t\t<Fragment name=\"" << fr.getName() << "\" />\n";
+    }
+    str_stream << "\t</SequenceDiagram>\n";
+  }
+  
+  str_stream << "</SequenceDiagrams>";
+
+  return str_stream.str();
+
+}
 // string SequenceDiagram::toXML() {
 //     std::stringstream strStream;
 

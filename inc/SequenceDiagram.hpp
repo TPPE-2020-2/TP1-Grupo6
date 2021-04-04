@@ -89,7 +89,7 @@ class SequenceDiagramXML {
     void addDiagram(SequenceDiagram*);
 
     // XML Functions
-		// string toXML();
+		string toXML();
 		// int exportXML();
 
 	private:
