@@ -3,7 +3,6 @@
 
 #include "Element.hpp"
 
-
 using namespace std;
 
 class StartNode : public Element {
@@ -11,9 +10,9 @@ class StartNode : public Element {
 		StartNode(string);
 		string getType();
 
-	private:
-		bool checkSourceAvailability();
-		bool checkDestinationAvailability();
+	protected:
+		bool checkSourceAvailability() override;
+		bool checkDestinationAvailability() override;
 };
 
 #endif

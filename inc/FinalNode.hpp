@@ -1,16 +1,16 @@
-#ifndef MERGENODE_H
-#define MERGENODE_H
+#ifndef FINALNODE_H
+#define FINALNODE_H
 
 #include "Element.hpp"
 
 using namespace std;
 
-class MergeNode : public Element {
+class FinalNode : public Element {
 	public:
-		MergeNode(string);
+		FinalNode(string);
 		string getType();
 
-	private:
+	protected:
 		bool checkSourceAvailability() override;
 };
 

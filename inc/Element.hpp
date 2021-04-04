@@ -4,6 +4,7 @@
 #include <string>
 #include <ostream>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -13,11 +14,12 @@ class Element {
 		string getName();
 		string toXML(int level = 0);
 		virtual string getType();
-		bool checkSourceAvailability();
-		bool checkDestinationAvailability();
 		void addTransition(int);
 		
 	protected:
+		virtual bool checkSourceAvailability();
+		virtual bool checkDestinationAvailability();
+
 		int sourceTransitions, destinationTransitions;
 		string name;
 };

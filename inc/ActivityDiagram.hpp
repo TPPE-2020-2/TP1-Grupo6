@@ -19,12 +19,12 @@ class ActivityDiagram {
 		void addTransition(string, string, string);
 		string toXML();
 		int exportXML();
-		Element getElement(string);
+		Element* getElement(string);
 		Transition getTransition(string);
 
 	private:
 		string name;
-		map<string, Element> elements;
+		map<string, Element*> elements;
 		map<string, Transition> transitions;
 };
 

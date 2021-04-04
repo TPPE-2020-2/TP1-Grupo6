@@ -1,5 +1,6 @@
 #include "Element.hpp"
 #include <stdexcept>
+#include <iostream>
 
 Element::Element(string name) {
 	this->name = name;
@@ -7,6 +8,14 @@ Element::Element(string name) {
 
 string Element::getName() {
 	return this->name;
+}
+
+bool Element::checkSourceAvailability() {
+	return true;
+}
+
+bool Element::checkDestinationAvailability() {
+	return true;
 }
 
 string Element::toXML(int level) {
@@ -18,14 +27,6 @@ string Element::toXML(int level) {
 	strStream << "<" << this->getType() << " name=\"" << this->name << "\" />";
 
 	return strStream.str();
-}
-
-bool Element::checkSourceAvailability(){
-	return true;
-}
-
-bool Element::checkDestinationAvailability(){
-	return true;
 }
 
 void Element::addTransition(int type){

@@ -1,10 +1,13 @@
 #include "ActivityDiagram.hpp"
 #include "StartNode.hpp"
+#include "FinalNode.hpp"
 #include "DecisionNode.hpp"
 #include "MergeNode.hpp"
 #include "Transition.hpp"
+#include "Activity.hpp"
 #include <gtest/gtest.h>
 #include <fstream>
+#include <ostream>
 
 TEST(ActivityDiagramCreationTest, DiagramCreation) {
 	ActivityDiagram diagram("my_diagram");
@@ -78,6 +81,24 @@ TEST(MergeNodeCreationTest, MergeNodeCreation3) {
 	EXPECT_EQ("my_mergeNode3", mergeNode.getName());
 }
 
+TEST(FinalNodeCreationTest, FinalNodeCreation) {
+	FinalNode finalNode("final_node");
+
+	EXPECT_EQ("final_node", finalNode.getName());
+}
+
+TEST(FinalNodeCreationTest, FinalNodeCreation2) {
+	FinalNode finalNode("ln");
+
+	EXPECT_EQ("ln", finalNode.getName());
+}
+
+TEST(FinalNodeCreationTest, FinalNodeCreation3) {
+	FinalNode finalNode("begone");
+
+	EXPECT_EQ("begone", finalNode.getName());
+}
+
 TEST(StartNodeXMLTest, StartNodeXML) {
 	StartNode startNode("my_element");
 
@@ -132,17 +153,75 @@ TEST(MergeNodeXMLTest, MergeNodeXML3) {
 	EXPECT_EQ("<MergeNode name=\"merging\" />", mergeNode.toXML());
 }
 
-/*TEST(ElementXMLTest, ElementXML2) {
-	Element element("endnode", 5);
+TEST(FinalNodeXMLTest, FinalNodeXML) {
+	FinalNode finalNode("final_node");
 
-	EXPECT_EQ("\t<FinalNode name=\"endnode\" />", element.toXML(1));
+	EXPECT_EQ("<FinalNode name=\"final_node\" />", finalNode.toXML());
 }
 
-TEST(ElementXMLTest, ElementXML3) {
-	Element element("arrival", 4);
+TEST(FinalNodeXMLTest, FinalNodeXML2) {
+	FinalNode finalNode("the_end_of_the_beginning");
 
-	EXPECT_EQ("<MergeNode name=\"arrival\" />", element.toXML());
-}*/
+	EXPECT_EQ("<FinalNode name=\"the_end_of_the_beginning\" />", finalNode.toXML());
+}
+
+TEST(FinalNodeXMLTest, FinalNodeXML3) {
+	FinalNode finalNode("third_time_is_the_charm");
+
+	EXPECT_EQ("<FinalNode name=\"third_time_is_the_charm\" />", finalNode.toXML());
+}
+
+TEST(ElementExceptionTest, StartNodeException) {
+	ActivityDiagram diagram("test_diagram");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("activity1", 2);
+
+	try {
+		diagram.addTransition("faulty_transition", "activity1", "start");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(ElementExceptionTest, MergeNodeException) {
+	ActivityDiagram diagram("test_diagram");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("activity1", 2);
+	diagram.addElement("merge1", 4);
+	diagram.addElement("activity2", 2);
+	diagram.addElement("activity3", 2);
+
+	diagram.addTransition("transition1", "start", "activity1");
+	diagram.addTransition("transition2", "activity1", "merge1");
+	diagram.addTransition("transition3", "merge1", "activity2");
+
+	try {
+		diagram.addTransition("faulty_transition", "merge1", "activity3");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(ElementExceptionTest, FinalNodeException) {
+	ActivityDiagram diagram("test_diagram");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("final", 5);
+	diagram.addElement("activity1", 2);
+
+	diagram.addTransition("transition1", "start", "final");
+
+	try {
+		diagram.addTransition("faulty_transition", "final", "activity1");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
 
 TEST(TransitionCreationTest, TransitionCreation) {
 	Transition transition("my_transition", "my_src_element","my_dest_element");
@@ -190,10 +269,28 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition) {
 	ActivityDiagram diagram("my_diagram");
 	diagram.addElement("start", 1);
 
-	Element element = diagram.getElement("start");
+	Element *element = diagram.getElement("start");
 
-	EXPECT_EQ("start", element.getName());
+	EXPECT_EQ("start", element->getName());
+}
 
+TEST(DiagramElementAdditionTest, DiagramElementAddition2) {
+	ActivityDiagram diagram("my_diagram");
+	diagram.addElement("start", 1);
+	diagram.addElement("activity", 3);
+
+	Element *element = diagram.getElement("activity");
+
+	EXPECT_EQ("activity", element->getName());
+}
+
+TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
+	ActivityDiagram diagram("my_diagram");
+	diagram.addElement("merge", 4);
+
+	Element *element = diagram.getElement("merge");
+
+	EXPECT_EQ("merge", element->getName());
 }
 
 /*TEST(DiagramElementAdditionTest, DiagramElementAddition2) {
