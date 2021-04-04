@@ -318,6 +318,39 @@ TEST(ElementExceptionTest, ElementNameException3) {
 	}
 }
 
+TEST(TransitionExceptionTest, DiagramTransitionAdditionException) {
+	ActivityDiagram diagram("my_diagram");
+	
+	try {
+		diagram.addTransition("my_transition", "my_src","my_dest");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(TransitionExceptionTest, DiagramTransitionAdditionException2) {
+	ActivityDiagram diagram("my_diagram2");
+
+	try {
+		diagram.addTransition("my_transition2", "my_src2","my_dest2");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(DiagramTransitionAdditionTest, DiagramTransitionAdditionException3) {
+	ActivityDiagram diagram("my_diagram3");
+
+	try {
+		diagram.addTransition("my_transition3", "my_src3","my_dest3");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
 TEST(TransitionCreationTest, TransitionCreation) {
 	Transition transition("my_transition", "my_src_element","my_dest_element");
 
@@ -388,59 +421,58 @@ TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
 	EXPECT_EQ("merge", element->getName());
 }
 
-
-
-/*TEST(DiagramElementAdditionTest, DiagramElementAddition2) {
-	ActivityDiagram diagram("my_diagram");
-	diagram.addElement("end", 5);
-
-	Element element = diagram.getElement("end");
-
-	EXPECT_EQ("end", element.getName());
-	EXPECT_EQ("FinalNode", element.getType());
-}
-
-TEST(DiagramElementAdditionTest, DiagramElementAddition3) {
-	ActivityDiagram diagram("my_diagram");
-	diagram.addElement("decision", 3);
-
-	Element element = diagram.getElement("decision");
-
-	EXPECT_EQ("decision", element.getName());
-	EXPECT_EQ("DecisionNode", element.getType());
-}
-
 TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition) {
 	ActivityDiagram diagram("my_diagram");
-	diagram.addTransition("my_transition", "my_src","my_dest");
+
+	diagram.addElement("start", 1);
+	diagram.addElement("final", 5);
+
+	diagram.addTransition("my_transition", "start", "final");
 
 	Transition transition = diagram.getTransition("my_transition");
 
 	EXPECT_EQ("my_transition", transition.getName());
-	EXPECT_EQ("my_src", transition.getSrc());
-	EXPECT_EQ("my_dest", transition.getDest());
+	EXPECT_EQ("start", transition.getSrc());
+	EXPECT_EQ("final", transition.getDest());
 }
 
 TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition2) {
 	ActivityDiagram diagram("my_diagram2");
-	diagram.addTransition("my_transition2", "my_src2","my_dest2");
 
-	Transition transition = diagram.getTransition("my_transition2");
+	diagram.addElement("start", 1);
+	diagram.addElement("activity", 2);
+	diagram.addElement("final", 5);
 
-	EXPECT_EQ("my_transition2", transition.getName());
-	EXPECT_EQ("my_src2", transition.getSrc());
-	EXPECT_EQ("my_dest2", transition.getDest());
+	diagram.addTransition("my_transition", "start", "activity");
+	diagram.addTransition("my_transition2", "activity", "final");
+
+	Transition transition = diagram.getTransition("my_transition");
+	Transition transition2 = diagram.getTransition("my_transition2");
+
+	EXPECT_EQ("my_transition", transition.getName());
+	EXPECT_EQ("start", transition.getSrc());
+	EXPECT_EQ("activity", transition.getDest());
+
+	EXPECT_EQ("my_transition2", transition2.getName());
+	EXPECT_EQ("activity", transition2.getSrc());
+	EXPECT_EQ("final", transition2.getDest());
 }
 
 TEST(DiagramTransitionAdditionTest, DiagramTransitionAddition3) {
-	ActivityDiagram diagram("my_diagram3");
-	diagram.addTransition("my_transition3", "my_src3","my_dest3");
+	ActivityDiagram diagram("my_diagram");
 
-	Transition transition = diagram.getTransition("my_transition3");
+	diagram.addElement("start", 1);
+	diagram.addElement("activity", 2);
+	diagram.addElement("merge", 4);
+	diagram.addElement("final", 5);
 
-	EXPECT_EQ("my_transition3", transition.getName());
-	EXPECT_EQ("my_src3", transition.getSrc());
-	EXPECT_EQ("my_dest3", transition.getDest());
+	diagram.addTransition("my_transition", "activity", "merge");
+
+	Transition transition = diagram.getTransition("my_transition");
+
+	EXPECT_EQ("my_transition", transition.getName());
+	EXPECT_EQ("activity", transition.getSrc());
+	EXPECT_EQ("merge", transition.getDest());
 }
 
 TEST(DiagramXMLTest, DiagramXML) {
@@ -463,10 +495,10 @@ TEST(DiagramXMLTest, DiagramXML2) {
 	diagram.addElement("activity1", 2);
 	diagram.addElement("end", 5);
 
-	diagram.addTransition("transition1", "partida", "activity1");
-	diagram.addTransition("transition2", "activity2", "end");
+	diagram.addTransition("transition1", "start", "activity1");
+	diagram.addTransition("transition2", "activity1", "end");
 
-	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity2\" dest=\"end\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"start\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"end\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
 			  diagram.toXML()
 			 );
 }
@@ -479,86 +511,33 @@ TEST(DiagramXMLTest, DiagramXML3) {
 	diagram.addElement("activity2",2);
 	diagram.addElement("end", 5);
 
-	diagram.addTransition("transition1", "partida", "activity1");
+	diagram.addTransition("transition1", "start", "activity1");
 	diagram.addTransition("transition2", "activity1", "activity2");
-	diagram.addTransition("transition2", "activity2", "end");
 
-	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<Activity name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<Activity name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"start\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
 			  diagram.toXML()
 			 );
 }
 
 TEST(DiagramExportXMLTest, DiagramExportXML) {
 	std::ifstream in;
-	ActivityDiagram diagram("diagram");
+	ActivityDiagram diagram("diagrama_mio");
 
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("activity2", 2);
-	diagram.addElement("end", 5);
+	diagram.addElement("partida", 1);
+	diagram.addElement("finale", 5);
 
-	diagram.addTransition("transition1", "partida", "activity1");
-	diagram.addTransition("transition2", "activity1", "activity2");
-	diagram.addTransition("transition2", "activity2", "end");
+	diagram.addTransition("transition1", "partida", "finale");
 
 	diagram.exportXML();
 
 	in.open("ActivityDiagram.xml");
 	auto ss = ostringstream{};
 	ss << in.rdbuf();
-		
-	EXPECT_EQ("<ActivityDiagram name=\"diagram\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<Activity name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
-		ss.str()
-	);
+	
+	EXPECT_EQ("<ActivityDiagram name=\"diagrama_mio\">\n\t<ActivityDiagramElements>\n\t\t<FinalNode name=\"finale\" />\n\t\t<StartNode name=\"partida\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"finale\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
+			  ss.str()
+			 );
 }
-
-TEST(DiagramExportXMLTest, DiagramExportXML2) {
-	std::ifstream in;
-	ActivityDiagram diagram("diagram2");
-
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("activity2", 2);
-	diagram.addElement("end", 5);
-
-	diagram.addTransition("transition1", "partida", "activity1");
-	diagram.addTransition("transition2", "activity1", "activity2");
-	diagram.addTransition("transition2", "activity2", "end");
-
-	diagram.exportXML();
-
-	in.open("ActivityDiagram.xml");
-	auto ss = ostringstream{};
-	ss << in.rdbuf();
-		
-	EXPECT_EQ("<ActivityDiagram name=\"diagram2\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<Activity name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
-		ss.str()
-	);
-}
-
-TEST(DiagramExportXMLTest, DiagramExportXML3) {
-	std::ifstream in;
-	ActivityDiagram diagram("diagram3");
-
-	diagram.addElement("start", 1);
-	diagram.addElement("activity1", 2);
-	diagram.addElement("activity2", 2);
-	diagram.addElement("end", 5);
-
-	diagram.addTransition("transition1", "partida", "activity1");
-	diagram.addTransition("transition2", "activity1", "activity2");
-	diagram.addTransition("transition2", "activity2", "end");
-
-	diagram.exportXML();
-
-	in.open("ActivityDiagram.xml");
-	auto ss = ostringstream{};
-	ss << in.rdbuf();
-		
-	EXPECT_EQ("<ActivityDiagram name=\"diagram3\">\n\t<ActivityDiagramElements>\n\t\t<Activity name=\"activity1\" />\n\t\t<Activity name=\"activity2\" />\n\t\t<FinalNode name=\"end\" />\n\t\t<StartNode name=\"start\" />\n\t</ActivityDiagramElements>\n\t<ActivityDiagramTransitions>\n\t\t<Transition name=\"transition1\" src=\"partida\" dest=\"activity1\" />\n\t\t<Transition name=\"transition2\" src=\"activity1\" dest=\"activity2\" />\n\t</ActivityDiagramTransitions>\n</ActivityDiagram>",
-		ss.str()
-	);
-}*/
 
 int main(int argc, char **argv) {
 	testing::InitGoogleTest(&argc, argv);

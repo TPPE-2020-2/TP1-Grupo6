@@ -31,7 +31,9 @@ void ActivityDiagram::addElement(string name, int type) {
 	if(check){
 		switch(type){
 			case 1:
-				if(this->hasStart) throw std::invalid_argument("ActivityDiagramRuleException");
+				if(this->hasStart)
+					throw std::invalid_argument("ActivityDiagramRuleException");
+
 				this->elements.insert(pair<string, Element*>(name, new StartNode(name)));
 				this->hasStart = true;
 				break;
@@ -50,6 +52,7 @@ void ActivityDiagram::addElement(string name, int type) {
 				break;
 		}
 	} else {
+		cout << "Mamou?" << endl;
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 }
@@ -59,10 +62,16 @@ Element* ActivityDiagram::getElement(string name) {
 }
 
 void ActivityDiagram::addTransition(string name, string src, string dest) {
-	auto srcE = this->elements.find(src)->second;
-	auto destE = this->elements.find(dest)->second;
-	srcE->addTransition(0);
-	destE->addTransition(1);
+	auto srcE = this->elements.find(src);
+	auto destE = this->elements.find(dest);
+
+	if(srcE == this->elements.end() || destE == this->elements.end()) {
+		cout << "Mamaste?" << endl;
+		throw std::invalid_argument("ActivityDiagramRuleException");
+	}
+
+	srcE->second->addTransition(0);
+	destE->second->addTransition(1);
 	this->transitions.insert(pair<string, Transition>(name, Transition(name, src, dest)));
 }
 
@@ -101,6 +110,7 @@ int ActivityDiagram::exportXML(){
 		out.close();
 		return 1;
 	} else {
+		cout << "mama aqui" << endl;
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 }
