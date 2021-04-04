@@ -4,19 +4,25 @@
 #include <string>
 #include <ostream>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
 class Element {
 	public:
-		Element(string,int);
+		Element(string);
 		string getName();
-		string toXML();
-		string getType();
+		string toXML(int level = 0);
+		virtual string getType();
+		void addTransition(int);
 
-	private:
+
+	protected:
+		virtual bool checkSourceAvailability();
+		virtual bool checkDestinationAvailability();
+
+		int sourceTransitions, destinationTransitions;
 		string name;
-		int type;
 };
 
 #endif

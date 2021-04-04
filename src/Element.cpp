@@ -1,43 +1,46 @@
 #include "Element.hpp"
+#include <stdexcept>
+#include <iostream>
 
-Element::Element(string name, int type) {
+Element::Element(string name) {
 	this->name = name;
-	this->type = type;
 }
 
 string Element::getName() {
 	return this->name;
 }
 
-string Element::getType() {
-	switch(this->type) {
-		case 1:
-			return "Lifeline";
+bool Element::checkSourceAvailability() {
+	return true;
+}
 
-		case 2:
-			return "Optional";
-		
-		case 3:
-			return "Message";
+bool Element::checkDestinationAvailability() {
+	return true;
+}
 
-		case 4:
-			return "Reply";
+string Element::toXML(int level) {
+	std::stringstream strStream;
 
-		case 5:
-			return "Alternative Frame";
+	for(int c = 0; c < level; c++)
+		strStream << '\t';
+
+	strStream << "<" << this->getType() << " name=\"" << this->name << "\" />";
+
+	return strStream.str();
+}
+
+void Element::addTransition(int type){
+	if(!type){ // 0 == source / 1 == destination
+		if(this->checkSourceAvailability()){
+			this->sourceTransitions++;
+		} else {
+			throw std::invalid_argument("ActivityDiagramRuleException");
+		}
+	} else if(this->checkDestinationAvailability()){
+		this->destinationTransitions++;
+	} else {
+		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 }
 
-string Element::toXML() {
-	// std::stringstream strStream;
-
-    // for(int c = 0; c < level; c++)
-    //     strStream << '\t';
-
-    // strStream << "<Transition name=\"" << this->name << "\" src=\"" << this->src <<"\" dest=\"" << this->dest <<"\" />";
-
-    // return strStream.str();
-
-	return "";
-}
-	
+string Element::getType() { return "sample";}
