@@ -9,7 +9,7 @@ using namespace std;
 
 class Transition {
 	public:
-		Transition(string,string,string);
+		Transition(string,string,string,string);
 		string getName();
 		string getSrc();
 		string getDest();
@@ -19,6 +19,7 @@ class Transition {
 		string name;
 		string src;
 		string dest;
+		string prob;
 };
 
 #endif

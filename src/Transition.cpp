@@ -1,9 +1,10 @@
 #include "Transition.hpp"
 
-Transition::Transition(string name, string src, string dest) {
+Transition::Transition(string name, string src, string dest, string prob) {
 	this->name = name;
 	this->src = src;
 	this->dest = dest;
+	this->prob =  prob;
 }
 
 string Transition::getName() {
@@ -24,7 +25,7 @@ string Transition::toXML(int level) {
     for(int c = 0; c < level; c++)
         strStream << '\t';
 
-    strStream << "<Transition name=\"" << this->name << "\" src=\"" << this->src <<"\" dest=\"" << this->dest <<"\" />";
+    strStream << "<Transition name=\"" << this->name << "\" src=\"" << this->src <<"\" dest=\"" << this->dest <<"\" prob=\"" << this->prob <<"\" />";
 
     return strStream.str();
 }

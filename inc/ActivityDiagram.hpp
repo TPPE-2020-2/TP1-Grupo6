@@ -16,7 +16,7 @@ class ActivityDiagram {
 		ActivityDiagram(string);
 		string getName();
 		void addElement(string, int);
-		void addTransition(string, string, string);
+		void addTransition(string, string, string,string);
 		string toXML();
 		int exportXML();
 		Element* getElement(string);

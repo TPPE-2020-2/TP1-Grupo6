@@ -52,7 +52,6 @@ void ActivityDiagram::addElement(string name, int type) {
 				break;
 		}
 	} else {
-		cout << "Mamou?" << endl;
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 }
@@ -61,18 +60,17 @@ Element* ActivityDiagram::getElement(string name) {
 	return this->elements.find(name)->second;
 }
 
-void ActivityDiagram::addTransition(string name, string src, string dest) {
+void ActivityDiagram::addTransition(string name, string src, string dest, string prob) {
 	auto srcE = this->elements.find(src);
 	auto destE = this->elements.find(dest);
 
 	if(srcE == this->elements.end() || destE == this->elements.end()) {
-		cout << "Mamaste?" << endl;
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 
 	srcE->second->addTransition(0);
 	destE->second->addTransition(1);
-	this->transitions.insert(pair<string, Transition>(name, Transition(name, src, dest)));
+	this->transitions.insert(pair<string, Transition>(name, Transition(name, src, dest,prob)));
 }
 
 Transition ActivityDiagram::getTransition(string name) {
@@ -110,7 +108,6 @@ int ActivityDiagram::exportXML(){
 		out.close();
 		return 1;
 	} else {
-		cout << "mama aqui" << endl;
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
 }

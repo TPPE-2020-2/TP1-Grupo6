@@ -5,62 +5,24 @@
 using namespace std;
 
 int main() {
-	int choice;
-	string diagramName;
-
-	cout << "Insert the diagram name: ";
-	cin >> diagramName;
+	string diagramName = "nome do diagrama";
+	string startNode = "nome do nodo inicial";
+	string activityNode = "nome da atividade";
+	string decisionNode = "nome do nodo de decisao";
+	string mergeNode = "nome do nodo de fusao";
+	string finalNode = "nomde do nodo final";
 
 	ActivityDiagram diagram(diagramName);
+	diagram.addElement(startNode,1);
+	diagram.addElement(activityNode,2);
+	diagram.addElement(decisionNode,3);
+	diagram.addElement(mergeNode,4);
+	diagram.addElement(finalNode,5);
 
-	while(1) {
-		cout << "Choose the desired action:" << endl;
-		cout << "\t1. Add element" << endl;
-		cout << "\t2. Add transition" << endl;
-		cout << "\t3. Export diagram" << endl;
+	diagram.addTransition("nome da transicao",startNode,activityNode,"valor de probabilidade");
+	diagram.addTransition("nome da transicao2",activityNode,decisionNode,"valor de probabilidade");
 
-		cin >> choice;
-
-		switch(choice) {
-			case 1: {
-				string name;
-				int type;
-
-				cout << "Insert the element name: ";
-				cin >> name;
-				cout << "Choose the element type: " << endl;
-				cout << "\t1. StartNode" << endl;
-				cout << "\t2. Activity" << endl;
-				cout << "\t3. DecisionNode" << endl;
-				cout << "\t4. MergeNode" << endl;
-				cout << "\t5. FinalNode" << endl;
-				cin >> type;
-
-				diagram.addElement(name, type);
-				break;
-			}
-
-			case 2: {
-				string name, src, dest;
-
-				cout << "Insert the transition name: ";
-				cin >> name;
-				cout << "Insert the transition source: ";
-				cin >> src;
-				cout << "Insert the transition destination: ";
-				cin >> dest;
-
-				diagram.addTransition(name, src, dest);
-				break;
-			}
-
-			case 3:
-				diagram.exportXML();
-
-			default:
-				break;
-		}
-	}
+	diagram.exportXML();
 
 	return 0;
 }
