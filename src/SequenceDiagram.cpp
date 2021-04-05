@@ -63,7 +63,7 @@ void SequenceDiagramXML::Fragment::setSeqDiagram(SequenceDiagramXML sd, string s
     this->seq_diagram_name = seq_diagram;
   }
   else{
-    throw "EmptyOptionalFragment";
+    throw "EmptyOptionalSequenceDiagramXML::Fragment";
   }
 }
 
@@ -93,7 +93,7 @@ void SequenceDiagramXML::SequenceDiagram::addMessage(SequenceDiagramXML::Message
   }
   else{
     this->messages.push_back(message);
-    //cout << "addMessage() this->messages.size() " << this->messages.size() << endl;
+    //cout << "addSequenceDiagramXML::Message() this->messages.size() " << this->messages.size() << endl;
   }
 }
 
@@ -111,7 +111,7 @@ vector<string> SequenceDiagramXML::SequenceDiagram::getLifelines(){
 }
 
 vector<SequenceDiagramXML::Message> SequenceDiagramXML::SequenceDiagram::getMessages(){
-  //cout << "getMessages() this->messages.size() " << this->messages.size() << endl;
+  //cout << "getSequenceDiagramXML::Messages() this->messages.size() " << this->messages.size() << endl;
   return this->messages;
 }
 
@@ -168,7 +168,7 @@ void SequenceDiagramXML::addDiagram(SequenceDiagramXML::SequenceDiagram* qqn) {
   this->seq_diagrams.push_back(qqn);
 }
 
-string SequenceDiagramXML::toXML(){
+string SequenceDiagramXML::SequenceDiagramXML::toXML(){
   stringstream str_stream;
 
   str_stream << "<SequenceDiagrams>\n";
@@ -209,33 +209,12 @@ string SequenceDiagramXML::toXML(){
   return str_stream.str();
 
 }
-// string SequenceDiagram::toXML() {
-//     std::stringstream strStream;
 
-//     strStream << "<ActivityDiagram name=\"" << this->name << "\">" << endl;
-
-//     strStream << "\t<ActivityDiagramElements>" << endl;
-//     for(map<string, Element>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
-//         strStream << it->second.toXML(2) << endl;
-
-//     strStream << "\t</ActivityDiagramElements>" << endl;
-
-//     strStream << "\t<ActivityDiagramTransitions>" << endl;
-//     for(map<string, Transition>::iterator it=this->transitions.begin(); it != this->transitions.end(); ++it)
-//         strStream << it->second.toXML(2) << endl;
-
-//     strStream << "\t</ActivityDiagramTransitions>" << endl;
-
-//     strStream << "</ActivityDiagram>";
-
-//     return strStream.str();
-// }
-
-// int SequenceDiagram::exportXML(){
-// 	std::ofstream out;
-// 	auto xml = this->toXML();
-// 	out.open("ActivityDiagram.xml");
-// 	out << xml;
-// 	out.close();
-// 	return 1;
-// }
+int SequenceDiagramXML::exportXML(){
+  std::ofstream out;
+  auto xml = this->toXML();
+  out.open("SequenceDiagram.xml");
+  out << xml;
+  out.close();
+  return 1;
+}

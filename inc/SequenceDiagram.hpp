@@ -8,9 +8,16 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 #include "Element.hpp"
 
 using namespace std;
+
+//#define Message SequenceDiagramXML::Message;
+//#define Fragment SequenceDiagramXML::Fragment;
+//#define SequenceDiagram SequenceDiagramXML::SequenceDiagram;
+
+
 
 class SequenceDiagramXML {
 	public:
@@ -87,6 +94,7 @@ class SequenceDiagramXML {
     vector<string> getAllDiagramName();
     vector<SequenceDiagram*> getAllDiagram();
     void addDiagram(SequenceDiagram*);
+    int exportXML();
 
     // XML Functions
 		string toXML();
