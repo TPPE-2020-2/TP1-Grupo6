@@ -248,3 +248,67 @@ TEST(ToXMLTest, ToXMLTest1){
 
   EXPECT_EQ(answ, diagram.toXML());
 }
+
+TEST(MessageFormatExceptionTest, MessageFormatException) {
+	SequenceDiagramXML diagram;
+	SequenceDiagramXML::Message message("my_message");
+  SequenceDiagramXML::Fragment fragment("my_fragment");
+  SequenceDiagramXML::SequenceDiagram* sequenceDiagram = new SequenceDiagramXML::SequenceDiagram("my_sequenceDiagram");
+  // sequenceDiagram->addLifelines("lifeline");
+  diagram.addDiagram(sequenceDiagram);
+
+  try {
+		message.setOrig(diagram, "lifeline");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("MessageFormatException", e.what());
+	}
+
+}
+
+TEST(MessageFormatExceptionTest, MessageFormatException2) {
+	SequenceDiagramXML diagram;
+	SequenceDiagramXML::Message message("my_message");
+  SequenceDiagramXML::Fragment fragment("my_fragment");
+  SequenceDiagramXML::SequenceDiagram* sequenceDiagram = new SequenceDiagramXML::SequenceDiagram("my_sequenceDiagram");
+  // sequenceDiagram->addLifelines("lifeline");
+  diagram.addDiagram(sequenceDiagram);
+
+  try {
+		message.setOrig(diagram, "lifeline2");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("MessageFormatException", e.what());
+	}
+
+}
+
+TEST(EmptyOptionalFragmentTest, EmptyOptionalFragment1) {
+	SequenceDiagramXML diagram;
+  SequenceDiagramXML::SequenceDiagram* sequenceDiagram = new SequenceDiagramXML::SequenceDiagram("my_sasdequenceDiagram");
+	SequenceDiagramXML::Message message("my_message");
+  SequenceDiagramXML::Fragment fragment("my_fragment");
+
+  try {
+		fragment.setSeqDiagram(diagram, "my_seqasduenceDiagram");
+		// FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("EmptyOptionalFragment", e.what());
+	}
+
+}
+
+TEST(EmptyOptionalFragmentTest, EmptyOptionalFragment2) {
+	SequenceDiagramXML diagram;
+  SequenceDiagramXML::SequenceDiagram* sequenceDiagram = new SequenceDiagramXML::SequenceDiagram("my_sasdequenceDiagram");
+	SequenceDiagramXML::Message message("my_message");
+  SequenceDiagramXML::Fragment fragment("my_fragment");
+
+  try {
+		fragment.setSeqDiagram(diagram, "my_seqasduenceDiagram2");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("EmptyOptionalFragment", e.what());
+	}
+
+}

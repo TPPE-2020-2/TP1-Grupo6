@@ -16,7 +16,7 @@ void SequenceDiagramXML::Message::setOrig(SequenceDiagramXML seq, string orig_li
     this->orig = orig_lifeline;
   }
   else{
-    throw "MessageFormatException";
+    throw std::invalid_argument("MessageFormatException");
   }
 }
 
@@ -27,7 +27,7 @@ void SequenceDiagramXML::Message::setDest(SequenceDiagramXML sd, string dest_lif
     this->dest = dest_lifeline;
   }
   else{
-    throw "MessageFormatException";
+    throw std::invalid_argument("MessageFormatException");
   }
 }
 
@@ -63,7 +63,7 @@ void SequenceDiagramXML::Fragment::setSeqDiagram(SequenceDiagramXML sd, string s
     this->seq_diagram_name = seq_diagram;
   }
   else{
-    throw "EmptyOptionalSequenceDiagramXML::Fragment";
+    throw std::invalid_argument("EmptyOptionalFragment");
   }
 }
 
@@ -89,7 +89,7 @@ void SequenceDiagramXML::SequenceDiagram::addLifelines(string lifeline){
 
 void SequenceDiagramXML::SequenceDiagram::addMessage(SequenceDiagramXML::Message message){
   if(message.getName().empty() || message.getOrig().empty() || message.getDest().empty() || isnan(message.getProb())){
-    throw "MessageFormatException";
+    throw std::invalid_argument("MessageFormatException");
   }
   else{
     this->messages.push_back(message);
@@ -99,7 +99,7 @@ void SequenceDiagramXML::SequenceDiagram::addMessage(SequenceDiagramXML::Message
 
 void SequenceDiagramXML::SequenceDiagram::addFragment(SequenceDiagramXML::Fragment fragment){
   if(fragment.getName().empty() || fragment.getSeqDiagram().empty()){
-    throw "EmptyOptionalFragment";
+    throw std::invalid_argument("EmptyOptionalFragment");
   }
   else{
     this->fragments.push_back(fragment);
