@@ -16,4 +16,5 @@ Para a compilação dos testes, execute:
 
 O projeto será compilado para o arquivo tp1.bin e os testes para o arquivo test.bin, ambos presentes na raíz do projeto. Dessa forma, para executar o projeto e os testes, respectivamente, insira no terminal, a partir da raíz do projeto, os comandos abaixo:
 > ./tp1.bin
+> 
 > ./test.bin
