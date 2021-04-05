@@ -8,6 +8,7 @@
 #include <map>
 #include "Element.hpp"
 #include "Transition.hpp"
+#include "SequenceDiagram.hpp"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ class ActivityDiagram {
 		Element* getElement(string);
 		Transition getTransition(string);
 		bool checkName(string);
+		void addSequence(SequenceDiagramXML*, string);
+		bool checkActivities();
 
 	private:
 		string name;

@@ -99,8 +99,30 @@ string ActivityDiagram::toXML() {
     return strStream.str();
 }
 
+bool ActivityDiagram::checkActivities() {
+	for(map<string, Element*>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
+		if(it->second->getType() == "Activity")
+			if(((Activity*) it->second)->getDiagram() == NULL)
+				return false;
+	return true;
+}
+
+void ActivityDiagram::addSequence(SequenceDiagramXML* diagram, string name) {
+	Element *e = this->getElement(name);
+	if(e->getType() != "Activity")
+		throw std::invalid_argument("ActivityDiagramRuleException");
+
+	Activity *activity = (Activity*) e;
+
+	if(activity->getDiagram() == NULL)
+		activity->setDiagram(diagram);
+
+	else
+		throw std::invalid_argument("ActivityDiagramRuleException");
+}
+
 int ActivityDiagram::exportXML(){
-	if(this->hasFinal && this->hasStart){
+	if(this->hasFinal && this->hasStart && this->checkActivities()){
 		std::ofstream out;
 		auto xml = this->toXML();
 		out.open("ActivityDiagram.xml");

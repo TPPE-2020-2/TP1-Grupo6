@@ -5,6 +5,7 @@
 #include "MergeNode.hpp"
 #include "Transition.hpp"
 #include "Activity.hpp"
+#include "SequenceDiagram.hpp"
 #include <gtest/gtest.h>
 #include <fstream>
 #include <ostream>
@@ -318,6 +319,37 @@ TEST(ElementExceptionTest, ElementNameException3) {
 	}
 }
 
+TEST(ElementExceptionTest, ElementSequenceAdditionException) {
+	ActivityDiagram diagram("my_diagram");
+	SequenceDiagramXML my_sequence;
+	SequenceDiagramXML my_sequence2;
+
+	diagram.addElement("my_activity", 2);
+
+	diagram.addSequence(&my_sequence, "my_activity");
+
+	try {
+		diagram.addSequence(&my_sequence2, "my_activity");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
+TEST(ElementExceptionTest, ElementSequenceAdditionException2) {
+	ActivityDiagram diagram("diagram");
+	SequenceDiagramXML sequence;
+
+	diagram.addElement("start_node", 1);
+
+	try {
+		diagram.addSequence(&sequence, "start_node");
+		FAIL();
+	} catch(std::invalid_argument &e) {
+		EXPECT_STREQ("ActivityDiagramRuleException", e.what());
+	}
+}
+
 TEST(TransitionExceptionTest, DiagramTransitionAdditionException) {
 	ActivityDiagram diagram("my_diagram");
 	
@@ -539,3 +571,90 @@ TEST(DiagramExportXMLTest, DiagramExportXML) {
 			 );
 }
 
+TEST(DiagramSequenceAdditionTest, DiagramSequenceAddition) {
+	ActivityDiagram diagram("diagrama_mio");
+	SequenceDiagramXML sequence;
+
+	diagram.addElement("partida", 1);
+	diagram.addElement("activity", 2);
+	diagram.addElement("finale", 5);
+
+	diagram.addSequence(&sequence, "activity");
+
+	Activity *activity = (Activity*) diagram.getElement("activity");
+	
+	EXPECT_EQ(&sequence, activity->getDiagram());
+}
+
+TEST(DiagramSequenceAdditionTest, DiagramSequenceAddition2) {
+	ActivityDiagram diagram("diagram");
+	SequenceDiagramXML sequence;
+	SequenceDiagramXML sequence2;
+
+	diagram.addElement("partida", 1);
+	diagram.addElement("activity", 2);
+	diagram.addElement("activity2", 2);
+	diagram.addElement("finale", 5);
+
+	diagram.addSequence(&sequence, "activity");
+	diagram.addSequence(&sequence2, "activity2");
+
+	Activity *activity = (Activity*) diagram.getElement("activity");
+	Activity *activity2 = (Activity*) diagram.getElement("activity2");
+	
+	EXPECT_EQ(&sequence, activity->getDiagram());
+	EXPECT_EQ(&sequence2, activity2->getDiagram());
+}
+
+TEST(DiagramSequenceAdditionTest, DiagramSequenceAddition3) {
+	ActivityDiagram diagram("my_diagram");
+	SequenceDiagramXML my_sequence;
+
+	diagram.addElement("my_activity", 2);
+
+	diagram.addSequence(&my_sequence, "my_activity");
+
+	Activity *my_activity = (Activity*) diagram.getElement("my_activity");
+	
+	EXPECT_EQ(&my_sequence, my_activity->getDiagram());
+}
+
+TEST(DiagramActivitySequenceCheckTest, DiagramActivitySequenceCheck) {
+	ActivityDiagram diagram("my_diagram");
+	SequenceDiagramXML my_sequence;
+
+	diagram.addElement("my_activity", 2);
+
+	diagram.addSequence(&my_sequence, "my_activity");
+	
+	EXPECT_EQ(true, diagram.checkActivities());
+}
+
+TEST(DiagramActivitySequenceCheckTest, DiagramActivitySequenceCheck2) {
+	ActivityDiagram diagram("diagram");
+	SequenceDiagramXML sequence;
+
+	diagram.addElement("partida", 1);
+	diagram.addElement("activity", 2);
+	diagram.addElement("activity2", 2);
+	diagram.addElement("finale", 5);
+
+	diagram.addSequence(&sequence, "activity");
+	
+	EXPECT_EQ(false, diagram.checkActivities());
+}
+
+TEST(DiagramActivitySequenceCheckTest, DiagramActivitySequenceCheck3) {
+	ActivityDiagram diagram("diagrama_mio");
+	SequenceDiagramXML sequence;
+
+	diagram.addElement("partida", 1);
+	diagram.addElement("activity", 2);
+	diagram.addElement("finale", 5);
+	
+	EXPECT_EQ(false, diagram.checkActivities());
+
+	diagram.addSequence(&sequence, "activity");
+
+	EXPECT_EQ(true, diagram.checkActivities());
+}

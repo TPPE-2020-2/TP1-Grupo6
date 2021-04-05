@@ -5,17 +5,21 @@
 
 using namespace std;
 
-void cria_diagrama_atividade();
-void cria_diagrama_sequencia();
+ActivityDiagram cria_diagrama_atividade();
+SequenceDiagramXML cria_diagrama_sequencia();
 
 int main() {
-  cria_diagrama_atividade();
-  cria_diagrama_sequencia();
+  ActivityDiagram activity_diagram = cria_diagrama_atividade();
+  SequenceDiagramXML sequence_diagram = cria_diagrama_sequencia();
+
+  activity_diagram.addSequence(&sequence_diagram, "nome da atividade");
+
+  activity_diagram.exportXML();
 
 	return 0;
 }
 
-void cria_diagrama_atividade(){
+ActivityDiagram cria_diagrama_atividade(){
 	string diagramName = "nome do diagrama";
 	string startNode = "nome do nodo inicial";
 	string activityNode = "nome da atividade";
@@ -33,10 +37,10 @@ void cria_diagrama_atividade(){
 	diagram.addTransition("nome da transicao",startNode,activityNode,"valor de probabilidade");
 	diagram.addTransition("nome da transicao2",activityNode,decisionNode,"valor de probabilidade");
 
-	diagram.exportXML();
+  return diagram;
 }
 
-void cria_diagrama_sequencia(){
+SequenceDiagramXML cria_diagrama_sequencia(){
   SequenceDiagramXML diagram;
   SequenceDiagramXML::SequenceDiagram * seq_sys_iden = new SequenceDiagramXML::SequenceDiagram("System identifies situation");
   SequenceDiagramXML::SequenceDiagram * seq_sql_pers = new SequenceDiagramXML::SequenceDiagram("SQLite Persistence");
@@ -135,4 +139,6 @@ void cria_diagrama_sequencia(){
   seq_sys_iden->addFragment(frag1);
 
   diagram.exportXML();
+
+  return diagram;
 }
