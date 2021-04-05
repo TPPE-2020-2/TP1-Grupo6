@@ -2,3 +2,4 @@
 lib/
 obj/
 *.xml
+.vscode/
