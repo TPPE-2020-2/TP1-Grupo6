@@ -30,6 +30,10 @@ class ActivityDiagram {
 		bool hasFinal;
 		
 	private:
+    void createElement(string, int);
+    void convertElementsToXML(stringstream&);
+    void convertTransitionsToXML(stringstream&);
+
 		string name;
 		map<string, Element*> elements;
 		map<string, Transition> transitions;

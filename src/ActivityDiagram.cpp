@@ -30,6 +30,13 @@ string ActivityDiagram::getName() {
 void ActivityDiagram::addElement(string name, int type) {
 	bool check = this->checkName(name);
 	if(check){
+    this->createElement(name, type);
+	} else {
+		throw std::invalid_argument("ActivityDiagramRuleException");
+	}
+}
+
+void ActivityDiagram::createElement(string name, int type){
 		switch(type){
 			case 1:
 				if(this->hasStart)
@@ -52,9 +59,6 @@ void ActivityDiagram::addElement(string name, int type) {
 				this->hasFinal = true;
 				break;
 		}
-	} else {
-		throw std::invalid_argument("ActivityDiagramRuleException");
-	}
 }
 
 Element* ActivityDiagram::getElement(string name) {
@@ -78,20 +82,30 @@ Transition ActivityDiagram::getTransition(string name) {
 	return this->transitions.find(name)->second;
 }
 
+void ActivityDiagram::convertElementsToXML(std::stringstream &strStream){
+    for(map<string, Element*>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
+        strStream << it->second->toXML(2) << endl;
+}
+
+void ActivityDiagram::convertTransitionsToXML(stringstream &strStream){
+    for(map<string, Transition>::iterator it=this->transitions.begin(); it != this->transitions.end(); ++it)
+        strStream << it->second.toXML(2) << endl;
+}
+
 string ActivityDiagram::toXML() {
     std::stringstream strStream;
 
     strStream << "<ActivityDiagram name=\"" << this->name << "\">" << endl;
 
     strStream << "\t<ActivityDiagramElements>" << endl;
-    for(map<string, Element*>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
-        strStream << it->second->toXML(2) << endl;
+
+    this->convertElementsToXML(strStream);
 
     strStream << "\t</ActivityDiagramElements>" << endl;
 
     strStream << "\t<ActivityDiagramTransitions>" << endl;
-    for(map<string, Transition>::iterator it=this->transitions.begin(); it != this->transitions.end(); ++it)
-        strStream << it->second.toXML(2) << endl;
+
+    this->convertTransitionsToXML(strStream);
 
     strStream << "\t</ActivityDiagramTransitions>" << endl;
 
