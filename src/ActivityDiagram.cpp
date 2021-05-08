@@ -27,10 +27,84 @@ string ActivityDiagram::getName() {
 	return this->name;
 }
 
+void ActivityDiagram::addElement(StartNode name) {
+  bool check = this->checkName(name.getNodeName());
+  if (check) {
+    if (this->hasStart)
+      throw std::invalid_argument("ActivityDiagramRuleException");
+
+    this->elements.insert(pair<string, Element*>(
+        name.getNodeName(), new StartNode(name.getNodeName())));
+    this->hasStart = true;
+  } else {
+    throw std::invalid_argument("ActivityDiagramRuleException");
+  }
+}
+
+void ActivityDiagram::addElement(string name) {
+  bool check = this->checkName(name);
+  if (check) {
+    this->elements.insert(pair<string, Element*>(name, new Activity(name)));
+
+  } else {
+    throw std::invalid_argument("ActivityDiagramRuleException");
+  }
+}
+
+void ActivityDiagram::addElement(DecisionNode name) {
+  bool check = this->checkName(name.getNodeName());
+  if (check) {
+    this->elements.insert(pair<string, Element*>(
+        name.getNodeName(), new DecisionNode(name.getNodeName())));
+
+  } else {
+    throw std::invalid_argument("ActivityDiagramRuleException");
+  }
+}
+
+void ActivityDiagram::addElement(MergeNode name) {
+  bool check = this->checkName(name.getNodeName());
+  if (check) {
+    this->elements.insert(pair<string, Element*>(
+        name.getNodeName(), new MergeNode(name.getNodeName())));
+
+  } else {
+    throw std::invalid_argument("ActivityDiagramRuleException");
+  }
+}
+
+void ActivityDiagram::addElement(FinalNode name) {
+  bool check = this->checkName(name.getNodeName());
+  if (check) {
+    this->elements.insert(pair<string, Element*>(
+        name.getNodeName(), new FinalNode(name.getNodeName())));
+    this->hasFinal = true;
+
+  } else {
+    throw std::invalid_argument("ActivityDiagramRuleException");
+  }
+}
+
 void ActivityDiagram::addElement(string name, int type) {
 	bool check = this->checkName(name);
 	if(check){
-    this->createElement(name, type);
+		switch(type){
+			case 1:
+				this->addElement(StartNode(name));
+				break;
+			case 2:
+				this->addElement(name);
+				break;
+			case 3:
+				this->addElement(DecisionNode(name));
+				break;
+			case 4:
+				this->addElement(MergeNode(name));
+				break;
+			case 5:
+				this->addElement(FinalNode(name));
+				break;
+		}
 	} else {
 		throw std::invalid_argument("ActivityDiagramRuleException");
 	}
