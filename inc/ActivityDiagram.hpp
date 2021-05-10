@@ -10,6 +10,7 @@
 #include "Transition.hpp"
 #include "SequenceDiagram.hpp"
 
+
 using namespace std;
 
 class ActivityDiagram {
@@ -25,13 +26,14 @@ class ActivityDiagram {
 		bool checkName(string);
 		void addSequence(SequenceDiagramXML*, string);
 		bool checkActivities();
-
+		bool hasStart;
+		bool hasFinal;
+		
 	private:
 		string name;
 		map<string, Element*> elements;
 		map<string, Transition> transitions;
-		bool hasStart;
-		bool hasFinal;
+
 };
 
 #endif
