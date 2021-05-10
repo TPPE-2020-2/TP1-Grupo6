@@ -14,6 +14,7 @@ class Transition {
 		string getSrc();
 		string getDest();
 		string toXML(int level = 0);
+		string getProb();
 
 	private:
 		string name;

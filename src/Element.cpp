@@ -1,4 +1,5 @@
 #include "Element.hpp"
+#include "ActivityDiagram.hpp"
 #include <stdexcept>
 #include <iostream>
 
@@ -19,14 +20,7 @@ bool Element::checkDestinationAvailability() {
 }
 
 string Element::toXML(int level) {
-	std::stringstream strStream;
-
-	for(int c = 0; c < level; c++)
-		strStream << '\t';
-
-	strStream << "<" << this->getType() << " name=\"" << this->name << "\" />";
-
-	return strStream.str();
+	return ActivityDiagram::toXML(this, level);
 }
 
 void Element::addTransition(int type){

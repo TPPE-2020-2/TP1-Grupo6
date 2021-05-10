@@ -158,12 +158,12 @@ Transition ActivityDiagram::getTransition(string name) {
 
 void ActivityDiagram::convertElementsToXML(std::stringstream &strStream){
     for(map<string, Element*>::iterator it=this->elements.begin(); it != this->elements.end(); ++it)
-        strStream << it->second->toXML(2) << endl;
+        strStream << this->toXML(it->second, 2) << endl;
 }
 
 void ActivityDiagram::convertTransitionsToXML(stringstream &strStream){
     for(map<string, Transition>::iterator it=this->transitions.begin(); it != this->transitions.end(); ++it)
-        strStream << it->second.toXML(2) << endl;
+        strStream << this->toXML(&(it->second), 2) << endl;
 }
 
 string ActivityDiagram::toXML() {
@@ -213,4 +213,26 @@ void ActivityDiagram::addSequence(SequenceDiagramXML* diagram, string name) {
 int ActivityDiagram::exportXML(){
 	Exporter exporter = Exporter(this);
 	return exporter.exportXML();
+}
+
+string ActivityDiagram::toXML(Element* e, int level) {
+  std::stringstream strStream;
+
+  for(int c = 0; c < level; c++)
+      strStream << '\t';
+
+  strStream << "<" << e->getType() << " name=\"" << e->getName() << "\" />";
+
+  return strStream.str();
+}
+
+string ActivityDiagram::toXML(Transition* t, int level) {
+  std::stringstream strStream;
+
+  for(int c = 0; c < level; c++)
+      strStream << '\t';
+
+  strStream << "<Transition name=\"" << t->getName() << "\" src=\"" << t->getSrc() <<"\" dest=\"" << t->getDest() <<"\" prob=\"" << t->getProb() <<"\" />";
+
+  return strStream.str();
 }

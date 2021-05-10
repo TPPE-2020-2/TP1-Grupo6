@@ -1,4 +1,5 @@
 #include "Transition.hpp"
+#include "ActivityDiagram.hpp"
 
 Transition::Transition(string name, string src, string dest, string prob) {
 	this->name = name;
@@ -20,12 +21,9 @@ string Transition::getDest() {
 }
 
 string Transition::toXML(int level) {
-	std::stringstream strStream;
+	return ActivityDiagram::toXML(this, level);
+}
 
-    for(int c = 0; c < level; c++)
-        strStream << '\t';
-
-    strStream << "<Transition name=\"" << this->name << "\" src=\"" << this->src <<"\" dest=\"" << this->dest <<"\" prob=\"" << this->prob <<"\" />";
-
-    return strStream.str();
+string Transition::getProb() {
+	return this->prob;
 }

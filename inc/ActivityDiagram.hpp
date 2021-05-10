@@ -30,6 +30,8 @@ class ActivityDiagram {
 		void addTransition(string, string, string,string);
 		string toXML();
 		int exportXML();
+		static string toXML(Element*, int);
+		static string toXML(Transition*, int);
 		Element* getElement(string);
 		Transition getTransition(string);
 		bool checkName(string);
