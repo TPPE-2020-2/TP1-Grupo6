@@ -1,0 +1,19 @@
+Observações:
+------------
+Quantidade consideravel de testes implementados, todos os testes passando. O
+programa funciona adequadamente. Classes de exceções não foram
+criadas/lançadas/testadas conforme enunciado pediu. Não há teste
+parametrizados.  Há testes de exceções para as exceções criadas com base na
+STDLib. É um bom trabalho, parabéns pelo esforço do grupo!. 
+
+Critérios de avaliação:
+-----------------------
+
+O programa funciona como deveria (30 %)?  30 pontos. 
+Testes parametrizados foram implementados (20%) ? 20 pontos. 
+Classes de exceções foram implementadas? Excecoes foram lançadas e tratadas?
+Testes de excecoes foram implementados? (- 10% para cada exceção não
+implementada adequadamente, limitado a 50% da nota): 30 pontos.
+
+
+NOTA FINAL: 60 pontos.
