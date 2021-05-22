@@ -1,0 +1,27 @@
+Observações:
+------------
+
+Refatoração Mover método OK! :+1:
+
+A refatoração "Substituir condicional por polimorfismo" implica na definição e
+implementação de um método polimórfico, o qual foi feito. Implica ainda na
+chamada ao método polimórfico fora de uma estrutura condicional, o qual não foi
+feito. 
+
+A refatoração "Substituir condicional por polimorfismo" implica em transformar
+as variáveis do método de origem em atributos da classe do método-objeto. Isso
+não foi feito. De resto, a refatoração está bem encaminhada!
+
+Critérios de avaliação:
+-----------------------
+
+Ref. 1 - mover método ou mover atributo (20 pontos): OK - 20 pontos.
+
+Ref. 2 - extrair método (20 pontos): OK - 20 pontos.
+
+Ref. 3 - substituir método por objeto-método (30 pontos): +/-, 20 pontos.
+
+Ref. 4 - substituir condicional por polimorfismo (30 pontos): +/-, 15 pontos. 
+
+
+NOTA FINAL: 75 pontos.
